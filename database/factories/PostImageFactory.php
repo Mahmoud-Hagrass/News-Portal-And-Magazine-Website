@@ -17,8 +17,10 @@ class PostImageFactory extends Factory
      */
     public function definition(): array
     {
+        $randomId = fake()->numberBetween(1, 1000); // Random ID for unique images
+        
         return [
-            'image' => fake()->imageUrl() , 
+            'image' => "https://picsum.photos/640/480?random={$randomId}", // Dynamic image URL
         ];
     }
 }

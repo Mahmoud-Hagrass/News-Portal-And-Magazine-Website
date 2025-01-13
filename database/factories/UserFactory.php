@@ -23,13 +23,14 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $randomId = fake()->numberBetween(1, 1000); // Random ID for unique images
         return [
             'name' => fake()->name(),
             'username' => fake()->unique()->userName(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
-            'image' => fake()->imageUrl() , 
+            'image' => "https://picsum.photos/640/480?random={$randomId}", // Dynamic image URL
             'phone' => fake()->unique()->phoneNumber() ,
             'country' => fake()->country(), 
             'city' => fake()->city(),

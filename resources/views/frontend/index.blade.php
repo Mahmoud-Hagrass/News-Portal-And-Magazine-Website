@@ -403,78 +403,16 @@
             <div class="row">
                 <div class="col-lg-9">
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="mn-img">
-                                <img src="{{ asset('assets-front') }}/img/news-350x223-1.jpg" />
-                                <div class="mn-title">
-                                    <a href="">Lorem ipsum dolor sit</a>
+                        @foreach($posts as $post)
+                            <div class="col-md-4">
+                                <div class="mn-img">
+                                    <img src="{{ $post->images->first()->image }}" />
+                                    <div class="mn-title">
+                                        <a href="">{{ $post->title }}</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mn-img">
-                                <img src="{{ asset('assets-front') }}/img/news-350x223-2.jpg" />
-                                <div class="mn-title">
-                                    <a href="">Lorem ipsum dolor sit</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mn-img">
-                                <img src="{{ asset('assets-front') }}/img/news-350x223-3.jpg" />
-                                <div class="mn-title">
-                                    <a href="">Lorem ipsum dolor sit</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mn-img">
-                                <img src="{{ asset('assets-front') }}/img/news-350x223-4.jpg" />
-                                <div class="mn-title">
-                                    <a href="">Lorem ipsum dolor sit</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mn-img">
-                                <img src="{{ asset('assets-front') }}/img/news-350x223-5.jpg" />
-                                <div class="mn-title">
-                                    <a href="">Lorem ipsum dolor sit</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mn-img">
-                                <img src="{{ asset('assets-front') }}/img/news-350x223-1.jpg" />
-                                <div class="mn-title">
-                                    <a href="">Lorem ipsum dolor sit</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mn-img">
-                                <img src="{{ asset('assets-front') }}/img/news-350x223-2.jpg" />
-                                <div class="mn-title">
-                                    <a href="">Lorem ipsum dolor sit</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mn-img">
-                                <img src="{{ asset('assets-front') }}/img/news-350x223-3.jpg" />
-                                <div class="mn-title">
-                                    <a href="">Lorem ipsum dolor sit</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mn-img">
-                                <img src="{{ asset('assets-front') }}/img/news-350x223-4.jpg" />
-                                <div class="mn-title">
-                                    <a href="">Lorem ipsum dolor sit</a>
-                                </div>
-                            </div>
-                        </div>
+                            </div> 
+                        @endforeach   
                     </div>
                 </div>
 
