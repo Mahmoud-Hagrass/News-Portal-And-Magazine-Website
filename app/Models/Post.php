@@ -14,6 +14,7 @@ class Post extends Model
         'title',
         'description',
         'slug' , 
+        'number_of_views' , 
         'comment_able',
         'status' ,
         'user_id',
@@ -27,12 +28,12 @@ class Post extends Model
     
     public function user()
     {
-        $this->belongsTo(User::class);
+        $this->belongsTo(User::class , 'post_id');
     }
 
     public function category()
     {
-        return $this->belongsTo(Category::class) ; 
+        return $this->belongsTo(Category::class , 'post_id') ; 
     }
 
     public function images()
@@ -40,7 +41,10 @@ class Post extends Model
         return $this->hasMany(PostImage::class , 'post_id'); 
     }
 
-
+    public function comments()
+    {
+        return $this->hasMany(Comment::class , 'post_id');
+    }
      //==========================================================================//
         //------------------------Elequent Sluggable----------------------------//
     //==========================================================================//

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title') ;  
             $table->longText('description') ; 
             $table->string('slug')->unique() ; 
+            $table->bigInteger('number_of_views')->default(0);
             $table->boolean('comment_able')->default(1);
             $table->boolean('status')->default(1);
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
