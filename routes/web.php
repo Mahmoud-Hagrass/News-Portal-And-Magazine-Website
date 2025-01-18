@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\Frontend\CategoryController;
+use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\NewsSubscriberController;
 use App\Http\Controllers\Frontend\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Contact;
 use Illuminate\Support\Facades\Route;
+use Predis\Configuration\Option\Prefix;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +27,19 @@ Route::group([
     Route::get('/', [HomeController::class, 'index'])->name('index');
     Route::post('news-subscribe', [NewsSubscriberController::class, 'store'])->name('news-subscribe');
     Route::get('/category/{slug}', CategoryController::class)->name('category-posts');
-    Route::get('/post/{slug}', [PostController::class, 'show_post'])->name('post.show');
-    Route::get('/post/comments/{slug}', [PostController::class, 'get_post_comments'])->name('post.comments');
-    Route::post('/post/comments/store', [PostController::class, 'store_comment'])->name('post.comments.store');
+    
+    // Post Routes
+    Route::controller(PostController::class)->prefix('post')->name('post.')->group(function (){
+            Route::get('/{slug}', 'show_post')->name('show');
+            Route::get('comments/{slug}', 'get_post_comments')->name('comments');
+            Route::post('/comments/store', 'store_comment')->name('comments.store');
+    }) ; 
+    
+    // Contact Routes
+    Route::controller(ContactController::class)->prefix('contact-us')->name('contact-us.')->group(function () {
+           Route::get('/' , 'index')->name('index') ;  
+           Route::post('/store' , 'store')->name('store') ;   
+    }) ; 
 });
 
 Route::get('/dashboard', function () {

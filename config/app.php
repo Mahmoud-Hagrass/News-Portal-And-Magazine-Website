@@ -169,7 +169,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\CheckSettingServiceProvider::class , 
-        App\Providers\SharedDataServiceProvider::class , 
+        App\Providers\SharedDataServiceProvider::class ,
+         
         
     ])->toArray(),
 

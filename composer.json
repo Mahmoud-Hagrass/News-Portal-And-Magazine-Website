@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.8",
         "php-flasher/flasher-laravel": "^1.15",
         "predis/predis": "^2.3",
+        "propaganistas/laravel-phone": "^5.3",
         "staudenmeir/eloquent-eager-limit": "^1.8"
     },
     "require-dev": {
