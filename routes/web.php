@@ -31,8 +31,9 @@ Route::group([
     // Post Routes
     Route::controller(PostController::class)->prefix('post')->name('post.')->group(function (){
             Route::get('/{slug}', 'show_post')->name('show');
-            Route::get('comments/{slug}', 'get_post_comments')->name('comments');
+            Route::get('/comments/{slug}', 'get_post_comments')->name('comments');
             Route::post('/comments/store', 'store_comment')->name('comments.store');
+            Route::post('/search' , 'post_search')->name('search') ; 
     }) ; 
     
     // Contact Routes

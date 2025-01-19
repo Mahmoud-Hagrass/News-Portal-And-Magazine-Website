@@ -12,11 +12,11 @@ class PostController extends Controller
 {
     public function show_post($slug)
     {
-        $post = Post::with(['user', 'images', 'category', 'comments' => function ($query) {
+        $post = Post::active()->with(['user', 'images', 'category', 'comments' => function ($query) {
             $query->latest()->limit(5);
         }])->whereSlug($slug)->first();
 
-        $relatedPosts = Post::with('images')
+        $relatedPosts = Post::active()->with('images')
             ->where('category_id', $post->category->id)
             ->latest()
             ->limit(5)
@@ -27,7 +27,7 @@ class PostController extends Controller
 
     public function get_post_comments($slug)
     {
-        $post = Post::with(['user', 'comments' => function ($query) {
+        $post = Post::active()->with(['user', 'comments' => function ($query) {
             $query->latest();
         }])->whereSlug($slug)->first();
 
@@ -37,7 +37,7 @@ class PostController extends Controller
                 'status' => 204, // no content found
             ]);
         }
-        
+
         return response()->json([
             'message' => 'success',
             'data' => $post,
@@ -62,5 +62,16 @@ class PostController extends Controller
             'data' => $comments_with_user,
             'status' => 201, // created 
         ]);
+    }
+
+
+    public function post_search(Request $request)
+    {
+        $data = $request->validate([
+            'post' => ['required', 'string'] , 
+        ]);
+        
+        $posts = Post::active()->with('images')->where('title' , 'LIKE' , "%". $data['post'] ."%")->get();
+        return view('frontend.post.search' , compact('posts')) ; 
     }
 }

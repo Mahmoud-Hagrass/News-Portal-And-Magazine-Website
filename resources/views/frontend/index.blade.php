@@ -6,7 +6,9 @@
         $firstThreePosts = $posts->take(3);
         $firstFourPosts = $posts->take(4);
     @endphp
+    
     <!-- Top News Start-->
+  <div id="search_result" style="margin-top:20px;">
     <div class="top-news">
         <div class="container">
             <div class="row">
@@ -188,6 +190,7 @@
             </div>
         </div>
     </div>
+  </div>
     <!-- Main News End-->
     @flasher_render
 @endsection

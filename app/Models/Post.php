@@ -60,4 +60,10 @@ class Post extends Model
         ];
     }
 
+    // Local Scope To Get Active Posts
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1); ; 
+    }
+
 }
