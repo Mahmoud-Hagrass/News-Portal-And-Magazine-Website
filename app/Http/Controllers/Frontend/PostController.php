@@ -15,7 +15,7 @@ class PostController extends Controller
         $post = Post::active()->with(['user', 'images', 'category', 'comments' => function ($query) {
             $query->latest()->limit(5);
         }])->whereSlug($slug)->first();
-
+        
         $relatedPosts = Post::active()->with('images')
             ->where('category_id', $post->category->id)
             ->latest()

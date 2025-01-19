@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name') ;
             $table->string('email')->unique() ;
             $table->string('subject') ;
-            $table->string('address') ; 
+            $table->string('address')->default('egypt') ; 
             $table->longText('message') ;   
             $table->string('phone') ; 
             $table->ipAddress('ip_address')->nullable();

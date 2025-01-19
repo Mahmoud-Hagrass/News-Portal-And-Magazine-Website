@@ -42,9 +42,9 @@ Route::group([
            Route::post('/store' , 'store')->name('store') ;   
     }) ; 
 });
-
+/*
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
+*/
 require __DIR__ . '/auth.php';

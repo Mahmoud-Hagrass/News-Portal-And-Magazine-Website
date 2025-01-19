@@ -65,7 +65,7 @@ class Handler extends ExceptionHandler
     {
         $this->handleMethodNotAllowedException() ; 
         $this->handleNotFoundHttpException() ; 
-        $this->handleQueryException() ; 
+        //$this->handleQueryException() ; 
         //$this->handleAllOtherExceptions() ; 
     }
 }

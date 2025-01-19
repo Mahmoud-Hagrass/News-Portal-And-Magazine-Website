@@ -9,12 +9,28 @@
             </div>
             <div class="col-md-6">
                 <div class="tb-menu">
-                    <a href="">About</a>
-                    <a href="">Privacy</a>
-                    <a href="">Terms</a>
-                    <a href="">Contact</a>
+                    @guest
+                        <a href="{{ route('register') }}">Register</a>
+                        <a href="{{ route('login') }}">Login</a>
+                    @endguest
+                    @auth()
+                        <a href="javascript:void(0)" onclick="submitLogoutForm()">Logout</a>
+                    @endauth()
+                    <form  id="submitLogoutForm" action="{{ route('logout') }}" method="POST">
+                        @csrf
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@push('js')
+    <script>
+        function submitLogoutForm(){
+            if(confirm('Are you sure you want to logout?')) {
+                document.getElementById('submitLogoutForm').submit() ; 
+            }
+        }
+    </script>
+@endpush
