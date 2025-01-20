@@ -16,25 +16,27 @@
             @csrf
             <div style="margin-top:20%;">
                 <h1>Login</h1>
-            <div class="text-field">
-                <input type="email" name="email" id="email" value="{{ old('email') }}">
-                <span></span>
-                <label for="">Email</label>
-                @error('email')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-            <div class="text-field">
-                <input type="password" name="password" id="password">
-                <span></span>
-                <label for="">Password</label>
-            </div>
-            <input type="submit" class="button" value="Login">
-            <p style="text-align: center; color: grey;">Already have an account? <a href="#"
-                    class="signin">SignIn</a></p>
+                <div class="text-field">
+                    <input type="email" name="email" id="email" value="{{ old('email') }}">
+                    <span></span>
+                    <label for="">Email</label>
+                    @error('email')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="text-field">
+                    <input type="password" name="password" id="password">
+                    <span></span>
+                    <label for="">Password</label>
+                </div>
+                <input type="submit" class="button" value="Login">
+                <p style="text-align:center;color:gray">Forgot Password ? <a style="text-decoration: none;"
+                        href="{{ route('password.request') }}">Click Here</a></p>
+                <p style="text-align:center;color:gray"> Don't have an account? <a style="text-decoration: none;"
+                        href="{{ route('register') }} ">Register Account</a></p>
         </form>
     </div>
-</div>
+    </div>
 </body>
 
 </html>

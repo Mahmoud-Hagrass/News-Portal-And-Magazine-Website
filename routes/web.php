@@ -24,7 +24,7 @@ use Predis\Configuration\Option\Prefix;
 Route::group([
     'as' => 'frontend.',
 ], function () {
-    Route::get('/', [HomeController::class, 'index'])->name('index');
+    Route::get('/', [HomeController::class, 'index'])->name('index')->middleware(['auth' ,'verified']); // as a test only
     Route::post('news-subscribe', [NewsSubscriberController::class, 'store'])->name('news-subscribe');
     Route::get('/category/{slug}', CategoryController::class)->name('category-posts');
     

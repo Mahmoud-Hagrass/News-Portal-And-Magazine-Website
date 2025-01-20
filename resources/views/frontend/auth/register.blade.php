@@ -43,7 +43,7 @@
                 <label for="">Password Confirmation</label>
             </div>
             <input type="submit" class="button" value="Register">
-            <p style="text-align: center; color: grey;">Already have an account? <a href="#"
+            <p style="text-align: center; color: grey;">Already have an account? <a href="{{ route('login') }}"
                     class="signin">SignIn</a></p>
         </form>
     </div>
