@@ -1,0 +1,88 @@
+body{
+    background: linear-gradient(120deg, #2980B9, #8e44a8) no-repeat;
+    height: 100vh;
+}
+head{
+    font-family: 'Roboto Slab', serif;
+}
+.center{
+    width: 400px;
+    height: 500px;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 10px;
+}
+.center h1{
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid silver;
+}
+.center form{
+    padding: 0 40px;
+}
+form .text-field{
+    position: relative;
+    border-bottom: 2px solid #adadad;
+    margin: 30px 0;
+}
+.text-field input{
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    background: none;
+    outline: none;
+    border: none;
+}
+.text-field label{
+    position: absolute;
+    top: 0;
+    transform: translateY(70%);
+    pointer-events: none;
+    font-size: 16px;
+    transition: 0.7s;
+}
+.text-field span{
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background-color: red;
+    top: 42px;
+    transition: 0.7s;
+}
+.text-field input:focus ~ label{
+    top: -20px;
+    color: red;
+}
+.text-field input:focus ~ span{
+    width: 100%;
+    background-color: red;
+}
+.text-field input:valid ~ label{
+    top: -20px;
+    color: #2980B9;
+}
+.text-field input:valid ~ span{
+    width: 100%;
+    background-color: #2980B9;
+}
+.button{
+    background-color: #2691D9;
+    border: none;
+    border-radius: 109px;
+    color: white;
+    padding: 10px 130px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+}
+.button:hover{
+    background-color: #2980B9;
+}
+.signin{
+    text-decoration: none;
+}
