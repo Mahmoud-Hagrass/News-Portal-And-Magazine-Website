@@ -45,7 +45,7 @@
                         <form id="commentFormId">
                             <div class="comment-input">
                                 <input type="text" name="comment" placeholder="Add a comment..." id="comment_id" />
-                                <input type="hidden" name="user_id" id="user_id" value="1"/>
+                                <input type="hidden" name="user_id" id="user_id" value="{{ (Auth::check()) ? Auth::id() : 0 }}"/>
                                 <input type="hidden" name="post_id" id="post_id" value="{{ $post->id }}"/>
                                 <button id="addCommentBtn">Add Comment</button>
                             </div>
@@ -62,7 +62,7 @@
                                     <img src="{{ $post->user->image }}" alt="User Image"
                                         class="comment-img" />
                                     <div class="comment-content">
-                                        <span class="username">{{ $post->user->name }}</span>
+                                        <span class="username">{{  $post->user->name }}</span>
                                         <p class="comment-text">{{ $comment->comment }}</p>
                                     </div>
                                 </div>

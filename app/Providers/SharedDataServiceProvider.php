@@ -24,6 +24,7 @@ class SharedDataServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        
         $categories = Category::basicSelect()->withPostsAndCount()->get() ;
 
         $newCatgories = $categories->take(9); 

@@ -18,7 +18,8 @@ class AccountProfileController extends Controller
 {
      public function show_profile()
      {
-        return view('frontend.dashboard.user-profile') ; 
+        $posts = Auth::user()->posts()->active()->with(['images'])->latest()->get() ;  
+        return view('frontend.dashboard.user-profile'  , compact('posts')) ; 
      }
 
      public function store_post(StorePostRequest $request)
@@ -54,5 +55,37 @@ class AccountProfileController extends Controller
                 display_error_message('Can not Create Post , Try Again') ;
                 return redirect()->back() ;
             }
+     }
+
+
+     public function edit_post($slug)
+     {
+        $post = Post::whereSlug($slug)->with(['images'])->get() ; 
+        return $post ; 
+     }
+
+     public function delete_post(Request $request)
+     {
+        $post = Post::with(['images'])->find($request->post_delete) ; 
+        ImageManager::deletePostImages($post) ;
+        //delete post and it's images paths from database
+        $post->delete() ; 
+        // clear the cache to get the updated posts after delete any post
+        Cache::forget('read_more_posts') ; 
+        display_success_message('Post Deleted Successfully !') ;
+        return redirect()->back() ; 
+     }
+
+
+     public function get_post_comments($slug)
+     {
+        $post = Post::whereSlug($slug)->first() ;
+        $comments =$post->comments()->latest()->get() ; 
+        $comments->load(['user']) ; 
+        return response()->json([
+            'status' => 200 , 
+            'comments' => $comments , 
+            'message' => 'success' , 
+        ]) ; 
      }
 }

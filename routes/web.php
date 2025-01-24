@@ -46,6 +46,9 @@ Route::group([
     Route::controller(AccountProfileController::class)->prefix('account')->name('dashboard.')->middleware(['auth' , 'verified'])->group(function(){
         Route::get('/profile' , 'show_profile')->name('account.profile') ; 
         Route::post('/post/store' , 'store_post')->name('post.store') ; 
+        Route::get('/post/edit/{slug}' , 'edit_post')->name('post.edit') ;
+        Route::delete('/post/delete' , 'delete_post')->name('post.delete') ; 
+        Route::get('/post/comments/{slug}' , 'get_post_comments')->name('post.comments') ;  
     }) ; 
 });
 require __DIR__ . '/auth.php';

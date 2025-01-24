@@ -21,7 +21,8 @@ class PostController extends Controller
             ->latest()
             ->limit(5)
             ->get();
-        //return $post ; 
+
+        $post->increment('number_of_views'); ; 
         return view('frontend.post.show', compact('post', 'relatedPosts'));
     }
 
