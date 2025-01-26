@@ -3,6 +3,7 @@
 use App\Http\Controllers\Frontend\CategoryController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\Dashboard\User\AccountProfileController;
+use App\Http\Controllers\Frontend\Dashboard\User\SettingController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\NewsSubscriberController;
 use App\Http\Controllers\Frontend\PostController;
@@ -43,12 +44,21 @@ Route::group([
            Route::post('/store' , 'store')->name('store') ;   
     }) ; 
 
-    Route::controller(AccountProfileController::class)->prefix('account')->name('dashboard.')->middleware(['auth' , 'verified'])->group(function(){
-        Route::get('/profile' , 'show_profile')->name('account.profile') ; 
-        Route::post('/post/store' , 'store_post')->name('post.store') ; 
-        Route::get('/post/edit/{slug}' , 'edit_post')->name('post.edit') ;
-        Route::delete('/post/delete' , 'delete_post')->name('post.delete') ; 
-        Route::get('/post/comments/{slug}' , 'get_post_comments')->name('post.comments') ;  
+    Route::prefix('account')->name('dashboard.')->middleware(['auth' , 'verified'])->group(function(){
+        Route::controller(AccountProfileController::class)->group(function(){
+            Route::get('/profile' , 'show_profile')->name('account.profile') ; 
+            Route::post('/post/store' , 'store_post')->name('post.store') ; 
+            Route::get('/post/edit/{slug}' , 'edit_post')->name('post.edit') ;
+            Route::delete('/post/delete' , 'delete_post')->name('post.delete') ; 
+            Route::get('/post/comments/{slug}' , 'get_post_comments')->name('post.comments') ;  
+        }); 
+        
+        Route::controller(SettingController::class)->prefix('setting')->name('setting.')->group(function(){
+            Route::get('/' , 'index')->name('index') ; 
+            Route::post('/update' , 'update_setting')->name('update') ; 
+            Route::post('/change-password' , 'change_password')->name('change-password') ; 
+        }) ; 
+
     }) ; 
 });
 require __DIR__ . '/auth.php';

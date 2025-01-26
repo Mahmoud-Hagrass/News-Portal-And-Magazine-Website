@@ -67,7 +67,7 @@ class AccountProfileController extends Controller
      public function delete_post(Request $request)
      {
         $post = Post::with(['images'])->find($request->post_delete) ; 
-        ImageManager::deletePostImages($post) ;
+        ImageManager::deleteImages($post) ;
         //delete post and it's images paths from database
         $post->delete() ; 
         // clear the cache to get the updated posts after delete any post

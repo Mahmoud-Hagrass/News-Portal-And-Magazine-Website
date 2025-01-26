@@ -1,6 +1,6 @@
 <head>
     <meta charset="utf-8" name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Bootstrap News Template - @yield('title')</title>
+    <title>{{ config('app.name') }} - @yield('title')</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="Bootstrap News Template - Free HTML Templates" name="keywords" />
     <meta content="Bootstrap News Template - Free HTML Templates" name="description" />
