@@ -103,6 +103,7 @@ class AccountProfileController extends Controller
             $post->update($request->except(['_token' , 'images' , 'post_id'])) ; // update post
             $uploadedFiles = [] ;
             $uploadedFiles = ImageManager::uploadImages($request , $post ,'uploads') ; 
+            Cache::forget('read_more_posts') ;
             DB::commit() ; 
             display_success_message('Post Updated Successfully !') ;
             return redirect()->back() ;
