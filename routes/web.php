@@ -48,9 +48,11 @@ Route::group([
         Route::controller(AccountProfileController::class)->group(function(){
             Route::get('/profile' , 'show_profile')->name('account.profile') ; 
             Route::post('/post/store' , 'store_post')->name('post.store') ; 
-            Route::get('/post/edit/{slug}' , 'edit_post')->name('post.edit') ;
+            Route::get('/post/{slug}/edit' , 'edit_post')->name('post.edit') ;
+            Route::put('/post/update' , 'update_post')->name('post.update') ;
             Route::delete('/post/delete' , 'delete_post')->name('post.delete') ; 
             Route::get('/post/comments/{slug}' , 'get_post_comments')->name('post.comments') ;  
+            Route::delete('/post/image/{image_id}/delete' , 'delete_post_image')->name('post.image.delete') ; 
         }); 
         
         Route::controller(SettingController::class)->prefix('setting')->name('setting.')->group(function(){

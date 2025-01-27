@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Frontend\Dashboard\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\Post\StorePostRequest;
+use App\Http\Requests\Frontend\Post\UpdatePostRequest;
 use App\Models\Post;
+use App\Models\PostImage;
 use App\Utils\Frontend\ImageManager;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -60,8 +63,9 @@ class AccountProfileController extends Controller
 
      public function edit_post($slug)
      {
-        $post = Post::whereSlug($slug)->with(['images'])->get() ; 
-        return $post ; 
+        $post = Post::whereSlug($slug)->with(['images'])->first() ; 
+        //return $post ; 
+        return view('frontend.post.edit' , get_defined_vars()) ; 
      }
 
      public function delete_post(Request $request)
@@ -86,6 +90,44 @@ class AccountProfileController extends Controller
             'status' => 200 , 
             'comments' => $comments , 
             'message' => 'success' , 
+        ]) ; 
+     }
+
+     public function update_post(UpdatePostRequest $request)
+     {
+        try{
+            DB::beginTransaction() ; 
+            $request->validated() ; 
+            $post = Post::with('images')->findorFail($request->post_id) ;
+            ($request->comment_able == 'on') ? $request->merge(['comment_able' => 1]) : $request->merge(['comment_able' => 0]) ;  
+            $post->update($request->except(['_token' , 'images' , 'post_id'])) ; // update post
+            $uploadedFiles = [] ;
+            $uploadedFiles = ImageManager::uploadImages($request , $post ,'uploads') ; 
+            DB::commit() ; 
+            display_success_message('Post Updated Successfully !') ;
+            return redirect()->back() ;
+        }catch(Exception $e){
+            DB::rollBack() ;
+            // delete all paths that might be uploaded
+            foreach($uploadedFiles as $file){
+                if(Storage::disk('uploads')->exists($file)){
+                    $file = Storage::disk('uploads')->delete($file);  
+                }
+            }
+            display_error_message('Can not Update Post , Try Again') ;
+            return redirect()->back() ; 
+        }
+     }
+
+     public function delete_post_image(Request $request , $id)
+     {
+        $image = PostImage::find($id); 
+        ImageManager::deleteImage($image) ; //delete from local storage
+        $image->delete() ; // delete form database
+        return response()->json([
+            'status' => 200 , 
+            'image' => $image , 
+            'message' => 'deleted successfully' ,
         ]) ; 
      }
 }

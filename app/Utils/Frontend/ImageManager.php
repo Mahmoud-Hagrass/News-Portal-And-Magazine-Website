@@ -10,6 +10,11 @@ class ImageManager
     {
         $uploadedFiles = [] ;
         if($request->hasFile('images')){
+            //delete old images
+            self::deleteImages($post) ; 
+            // delete post images from paths from database
+            $post->images()->delete() ;
+            
             $images = $request->file('images'); 
             foreach($images as $image){
                 $file =  Str::uuid() .  time() . '.' . $image->getClientOriginalExtension() ;
@@ -34,10 +39,10 @@ class ImageManager
         }
     }
 
-    public static function deleteImage($user)
+    public static function deleteImage($object)
     {
-        if(!empty($user->image) && Storage::disk('uploads')->exists($user->image)){
-            Storage::disk('uploads')->delete($user->image);
+        if(!empty($object->image) && Storage::disk('uploads')->exists($object->image)){
+            Storage::disk('uploads')->delete($object->image);
         }
         return false; 
     }

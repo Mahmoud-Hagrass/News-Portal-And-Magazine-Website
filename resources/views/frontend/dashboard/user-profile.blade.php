@@ -12,7 +12,7 @@
             <section id="profile" class="content-section active">
                 <h2>User Profile</h2>
                 <div class="user-profile mb-3">
-                    <img src="{{ asset('img.jpg')}}" alt="User Image"
+                    <img src="{{ asset('storage/uploads/' . Auth::guard('web')->user()->image) ?? asset('img.jpg')}}" alt="User Image"
                         class="profile-img rounded-circle" style="width: 100px; height: 100px;" />
                     <span class="username">{{ Auth::guard('web')->user()->name }}</span>
                 </div>

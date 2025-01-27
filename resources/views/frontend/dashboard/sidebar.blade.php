@@ -1,7 +1,7 @@
 <aside class="col-md-3 nav-sticky dashboard-sidebar">
     <!-- User Info Section -->
     <div class="user-info text-center p-3">
-        <img src="{{ asset('img.jpg')}}" alt="User Image" class="rounded-circle mb-2"
+        <img src="{{ asset('storage/uploads/' . Auth::guard('web')->user()->image) ?? asset('img.jpg')}}" alt="User Image" class="rounded-circle mb-2"
             style="width: 80px; height: 80px; object-fit: cover" />
         <h5 class="mb-0" style="color: #ff6f61"></h5>
     </div>
