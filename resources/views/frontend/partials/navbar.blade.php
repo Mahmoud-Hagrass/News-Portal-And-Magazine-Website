@@ -20,6 +20,33 @@
                     <a href="{{ route('frontend.dashboard.account.profile') }}" class="nav-item nav-link @yield('user-dashboard-status')">Dashboard</a>
                     <a href="{{ route('frontend.contact-us.index') }}" class="nav-item nav-link @yield('contact-status')">Contact Us</a>
                 </div>
+                <!-- Social Links and Notification Dropdown -->
+                <div class="social ml-auto justify-content-between d-flex align-items-center">
+                    <!-- Notification Dropdown -->
+                      <a href="#" class="nav-link dropdown-toggle" id="notificationDropdown" role="button"
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-bell"></i>
+                      <span id="count-notification" class="badge badge-danger">{{ Auth::user()->unreadNotifications->count() }}</span>
+                  </a>
+
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationDropdown"
+                      style="width: 300px;">
+                      <a href="{{ route('frontend.dashboard.notification.mark-all-as-read') }}" style="inline-block; margin-left:30px" class="dropdown-item"><strong>Mark All As Read</strong></a>
+                      @forelse (Auth::user()->unreadNotifications as $notify)
+                        <div id="push-notification">
+                            @php
+                                $url = $notify->data['link'] ?? '#'; // Retuen to '#' if link is not available
+                                $url .= '?notify=' . $notify->id; // Append the notify ID to the URL
+                           @endphp
+                            <div class="dropdown-item d-flex justify-content-between align-items-center">
+                                <a href="{{ $url }}" class="dropdown-item"><i class="fa fa-eye"></i>New Post Comment :{{ substr($notify->data['post_title'] , 0 , 14) }}</a>
+                            </div>
+                        </div>
+                      @empty
+                          
+                      @endforelse
+                  </div>
+
                 <div class="social ml-auto">
                     <a href="{{ $site_settings->twitter }}" title="twitter"><i class="fab fa-twitter"></i></a>
                     <a href="{{ $site_settings->facebook }}" title="facebook"><i class="fab fa-facebook-f"></i></a>

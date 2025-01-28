@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\StorePostCommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Notifications\NotifyUserForNewComment;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -51,16 +52,19 @@ class PostController extends Controller
         $data = $request->validated();
         $data['ip_address'] = $request->ip();
         $comment = Comment::create($data);
+        $comment_with_user = $comment->load('user');
         if (!$comment) {
             return response()->json([
                 'message' => 'Something Went Wrong !',
                 'status' => 204, // no content found
             ]);
         }
-        $comments_with_user = $comment->load('user');
+        $post = Post::findorFail($request->post_id) ; 
+        $post->user->notify(new NotifyUserForNewComment($comment_with_user , $post)) ;
+
         return response()->json([
             'message' => 'success',
-            'data' => $comments_with_user,
+            'data' => $comment_with_user,
             'status' => 201, // created 
         ]);
     }

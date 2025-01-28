@@ -3,6 +3,7 @@
 use App\Http\Controllers\Frontend\CategoryController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\Dashboard\User\AccountProfileController;
+use App\Http\Controllers\Frontend\Dashboard\User\NotificationController;
 use App\Http\Controllers\Frontend\Dashboard\User\SettingController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\NewsSubscriberController;
@@ -44,7 +45,7 @@ Route::group([
            Route::post('/store' , 'store')->name('store') ;   
     }) ; 
 
-    Route::prefix('account')->name('dashboard.')->middleware(['auth' , 'verified'])->group(function(){
+    Route::prefix('account')->name('dashboard.')->middleware(['auth'])->group(function(){
         Route::controller(AccountProfileController::class)->group(function(){
             Route::get('/profile' , 'show_profile')->name('account.profile') ; 
             Route::post('/post/store' , 'store_post')->name('post.store') ; 
@@ -59,6 +60,13 @@ Route::group([
             Route::get('/' , 'index')->name('index') ; 
             Route::post('/update' , 'update_setting')->name('update') ; 
             Route::post('/change-password' , 'change_password')->name('change-password') ; 
+        }) ; 
+
+        Route::controller(NotificationController::class)->prefix('/notification')->name('notification.')->group(function(){
+            Route::get('/' , 'index')->name('index');  
+            Route::delete('/delete' , 'delete_notification')->name('delete');  
+            Route::get('/delete-all' , 'delete_all_notifications')->name('delete-all');  
+            Route::get('/mark-all-as-read' , 'mark_all_as_read')->name('mark-all-as-read');  
         }) ; 
 
     }) ; 
