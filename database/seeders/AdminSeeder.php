@@ -20,5 +20,11 @@ class AdminSeeder extends Seeder
             'email' => 'admin@admin.com' , 
             'password' => Hash::make('123456789') ,
         ]) ;  
+        Admin::create([
+            'name' => 'admin2' , 
+            'username' => 'admin2' ,
+            'email' => 'admin2@admin.com' , 
+            'password' => Hash::make('123456789') ,
+        ]) ;  
     }
 }

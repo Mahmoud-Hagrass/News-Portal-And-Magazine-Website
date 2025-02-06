@@ -38,7 +38,7 @@
                 <br>
                 <input type="submit" class="button" value="Login">
                 <p style="text-align:center;color:gray">Forgot Password ? <a style="text-decoration: none;"
-                        href="{{ route('password.request') }}">Click Here</a></p>
+                        href="{{ route('admin.password.email') }}">Click Here</a></p>
         </form>
     </div>
     </div>
