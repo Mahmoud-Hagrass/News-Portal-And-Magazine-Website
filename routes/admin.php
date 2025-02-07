@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\Admin\Auth\Password\ForgetPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\Password\ResetPasswordController;
+use App\Http\Controllers\Backend\Admin\Users\UserController;
 use App\Http\Controllers\Frontend\CategoryController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\Dashboard\User\AccountProfileController;
@@ -16,18 +17,31 @@ use Illuminate\Support\Facades\Route;
 use Predis\Configuration\Option\Prefix;
 
 Route::group(['prefix' => 'admin' , 'as' => 'admin.'] , function(){
-    Route::get('/home' , function(){
+    Route::get('/dashboard' , function(){
         return view('backend.admin.index') ; 
     })->name('index')->middleware('admin') ; 
 
+    /*#############################################################################*/ 
+                    /*########   Password Reset Routes ########*/ 
+    /*#############################################################################*/ 
     Route::group(['prefix' => 'password' , 'as' => 'password.'] , function(){
-        Route::get('/email' , [ForgetPasswordController::class , 'showEmailForm'])->name('email') ; 
-        Route::post('/email' , [ForgetPasswordController::class , 'sendOtp'])->name('email') ; 
-        Route::get('/verify/{email}' , [ForgetPasswordController::class , 'verifyEmail'])->name('verify') ; 
-        Route::post('/verify' , [ForgetPasswordController::class , 'verifyOtp'])->name('otp.verify') ; 
-
-        Route::get('/reset/{email}' , [ResetPasswordController::class,'showResetPasswordForm'])->name('reset') ; 
-        Route::post('/reset' , [ResetPasswordController::class,'resetPassword'])->name('reset-password') ; 
+        Route::controller(ForgetPasswordController::class)->group(function(){
+            Route::get('/email' , 'showEmailForm')->name('email') ; 
+            Route::post('/email' , 'sendOtp')->name('email') ; 
+            Route::get('/verify/{email}' , 'verifyEmail')->name('verify') ; 
+            Route::post('/verify' , 'verifyOtp')->name('otp.verify') ; 
+        }) ; 
+     
+        Route::controller(ResetPasswordController::class)->group(function(){
+            Route::get('/reset/{email}' ,'showResetPasswordForm')->name('reset') ; 
+            Route::post('/reset' , 'resetPassword')->name('reset-password') ; 
+        }) ; 
     }) ; 
+    /*#############################################################################*/ 
+                       /*########  Uers Management Routes ########*/ 
+    /*#############################################################################*/ 
+    Route::resource('users' , UserController::class) ;
+    Route::post('/users/status' , [UserController::class,'changeUserStatus'])->name('users.change-status') ; 
+    
     require __DIR__ . '/adminAuth.php';
 }) ; 
