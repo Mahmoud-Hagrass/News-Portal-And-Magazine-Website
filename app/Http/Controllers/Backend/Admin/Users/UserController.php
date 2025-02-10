@@ -22,24 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        // get all query paramters requested from this resource:
-        $search = request()->query('search');
-        $status = request()->query('status');
-        $limit_by = request()->query('limit_by') ?? 5;
-        $sort_by = request()->query('sort_by') ?? 'id';
-        $order_by = request()->query('order_by') ?? 'asc';
-
-        $users = User::query()
-            ->when($search, function ($query) use ($search) {
-                $query->where('name', 'LIKE', "%" . $search . "%")
-                    ->orwhere('username', 'LIKE', "%" . $search . "%")
-                    ->orwhere('email', 'LIKE', "%" . $search . "%");
-            })
-            ->when(!is_null($status), function ($query) use ($status) {
-                $query->where('status', $status);
-            })
-            ->orderBy($sort_by, $order_by)
-            ->paginate($limit_by);
+        $users = $this->searchFilter() ; 
         return view('backend.admin.users.index', compact('users'));
     }
 
@@ -140,5 +123,51 @@ class UserController extends Controller
             display_success_message('User Now Active!');
             return redirect()->back();
         }
+    }
+
+    public function showBlockedUsers()
+    {
+        request()->merge(['status' => 0]) ; 
+        $users = $this->searchFilter() ;
+        return view('backend.admin.users.show-blocked-users' , ['users' => $users]); ; 
+    }
+
+    private function searchFilterQueryParams()
+    {
+        $search = request()->query('search');
+        $status = request()->query('status');
+        $limit_by = request()->query('limit_by') ?? 5;
+        $sort_by = request()->query('sort_by') ?? 'id';
+        $order_by = request()->query('order_by') ?? 'asc';
+        return[
+            'search' => $search,
+            'status' => $status , 
+            'limit_by' => $limit_by , 
+            'sort_by' => $sort_by , 
+            'order_by' => $order_by , 
+        ] ;
+    }
+
+    private function searchFilter()
+    {
+        $queryParams[] = $this->searchFilterQueryParams();
+        $search = $queryParams[0]['search'] ; 
+        $status = $queryParams[0]['status'] ; 
+        $limit_by = $queryParams[0]['limit_by'] ; 
+        $sort_by = $queryParams[0]['sort_by'] ; 
+        $order_by = $queryParams[0]['order_by'] ;
+
+        $users = User::query()
+            ->when($search, function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%" . $search . "%")
+                    ->orwhere('username', 'LIKE', "%" . $search . "%")
+                    ->orwhere('email', 'LIKE', "%" . $search . "%");
+            })
+            ->when(!is_null($status), function ($query) use ($status) {
+                $query->where('status', $status);
+            })
+            ->orderBy($sort_by, $order_by)
+            ->paginate($limit_by);
+        return $users;
     }
 }

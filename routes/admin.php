@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\Backend\Admin\Auth\Password\ForgetPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\Password\ResetPasswordController;
+use App\Http\Controllers\Backend\Admin\Categories\CategoryController;
 use App\Http\Controllers\Backend\Admin\Users\UserController;
-use App\Http\Controllers\Frontend\CategoryController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\Dashboard\User\AccountProfileController;
 use App\Http\Controllers\Frontend\Dashboard\User\NotificationController;
@@ -41,7 +41,12 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] , function(){
                        /*########  Uers Management Routes ########*/ 
     /*#############################################################################*/ 
     Route::resource('users' , UserController::class) ;
-    Route::post('/users/status' , [UserController::class,'changeUserStatus'])->name('users.change-status') ; 
+    Route::post('/users/change-status' , [UserController::class,'changeUserStatus'])->name('users.change-status') ; 
+    Route::get('/users/status/in-active' , [UserController::class,'showBlockedUsers'])->name('users.show.blocked-users') ; 
     
+
+    Route::resource('categories' , CategoryController::class) ;
+    Route::post('/categories/change-status' , [CategoryController::class , 'changeCategoryStatus'])->name('categories.change-status') ;
+
     require __DIR__ . '/adminAuth.php';
 }) ; 

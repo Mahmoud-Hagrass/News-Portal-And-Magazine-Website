@@ -41,7 +41,7 @@ class Category extends Model
 
     public function scopeBasicSelect($query)
     {
-         return $query->select('id' , 'name' , 'slug') ; 
+         return $query->select('id' , 'name' , 'slug' , 'status' , 'created_at') ; 
     }
 
     public function scopeActive($query)

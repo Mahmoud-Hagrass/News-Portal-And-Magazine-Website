@@ -69,22 +69,38 @@
         Addons
     </div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
+    <!-- User Management Sidebar -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUserPages"
             aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-folder"></i>
             <span>User Management</span>
         </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="collapseUserPages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Login Screens:</h6>
                 <a class="collapse-item" href="{{ route('admin.users.index') }}">Users</a>
                 <a class="collapse-item" href="{{ route('admin.users.create') }}">Add Users</a>
-                <a class="collapse-item" href="">Blocked Users</a>
+                <a class="collapse-item" href="{{ route('admin.users.show.blocked-users') }}">Blocked Users</a>
             </div>
         </div>
     </li>
+
+    <!-- User Management Sidebar -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategoryPages"
+            aria-expanded="true" aria-controls="collapsePages">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Category Management</span>
+        </a>
+        <div id="collapseCategoryPages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Login Screens:</h6>
+                <a class="collapse-item" href="{{ route('admin.categories.index') }}">Categories</a>
+            </div>
+        </div>
+    </li>
+
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">

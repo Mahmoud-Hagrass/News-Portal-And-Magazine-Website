@@ -13,7 +13,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <a href="javascript:void(0)" onclick="document.getElementById('deleteUserForm_'+{{ $id }}).submit();" class="btn btn-primary">Save changes</a>
+          <a href="javascript:void(0)" onclick="document.getElementById('deleteCategoryForm_{{ $id }}').submit();" class="btn btn-primary">{{ $title }}</a>
         </div>
       </div>
     </div>
