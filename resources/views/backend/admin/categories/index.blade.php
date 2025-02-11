@@ -75,7 +75,7 @@
                         <tbody>
                             @forelse ($categories as $category)
                                 <tr>
-                                    <td>{{ $loop->index + 1 }}</td>
+                                    <td>{{ ($categories->currentPage() - 1) * $categories->perPage() + $loop->iteration }}</td>
                                     <td>{{ $category->name }}</td>
                                     <td style="text-align:center">{{ $category->posts_count }}</td>
                                     <td>{{ $category->created_at->format('d-m-Y') }}</td>
