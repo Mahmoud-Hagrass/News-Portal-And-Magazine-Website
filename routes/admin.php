@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\Admin\Admins\AdminController;
 use App\Http\Controllers\Backend\Admin\Auth\Password\ForgetPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\Password\ResetPasswordController;
 use App\Http\Controllers\Backend\Admin\Categories\CategoryController;
@@ -63,6 +64,10 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] , function(){
         Route::get('/' , 'index')->name('index') ; 
         Route::put('/update' , 'update')->name('update') ; 
     }); 
-
+    /*#############################################################################*/ 
+                       /*########  Admins Management Routes ########*/ 
+    /*#############################################################################*/
+    Route::resource('admins' , AdminController::class) ; 
+    Route::post('/admins/change-status' , [AdminController::class , 'changeAdminStatus'])->name('admins.change-status') ;
     require __DIR__ . '/adminAuth.php';
 }) ; 
