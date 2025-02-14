@@ -47,6 +47,14 @@ class ImageManager
         return false; 
     }
 
+    public static function customDeleteImage($object , $col=null , $disk)
+    {
+        if(!empty($object->$col) && Storage::disk($disk)->exists($object->$col)){
+            Storage::disk($disk)->delete($object->$col);
+        }
+        return false; 
+    }
+
     public static function uploadImage($request , $user)
     {
         if($request->hasFile('image')){
@@ -58,5 +66,17 @@ class ImageManager
             ]) ;  
          }
            // $user->update(['image' => null]) ; 
+    }
+
+    public static function customeUploadImage($request , $object , $request_key, $col , $store_path , $disk)
+    {
+        if($request->hasFile($request_key)){
+            $image = $request->file($request_key) ; 
+            $file = Str::uuid() . time() . '.' .$image->getClientOriginalExtension() ; 
+            $path = $image->storeAs($store_path, $file , ['disk' => $disk]) ;
+            $object->update([
+                $col => $path , 
+            ]) ;  
+         }
     }
 }

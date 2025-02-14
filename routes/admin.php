@@ -4,11 +4,11 @@ use App\Http\Controllers\Backend\Admin\Auth\Password\ForgetPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\Password\ResetPasswordController;
 use App\Http\Controllers\Backend\Admin\Categories\CategoryController;
 use App\Http\Controllers\Backend\Admin\Posts\PostController;
+use App\Http\Controllers\Backend\Admin\Settings\SettingController;
 use App\Http\Controllers\Backend\Admin\Users\UserController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\Dashboard\User\AccountProfileController;
 use App\Http\Controllers\Frontend\Dashboard\User\NotificationController;
-use App\Http\Controllers\Frontend\Dashboard\User\SettingController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\NewsSubscriberController;
 use App\Http\Controllers\ProfileController;
@@ -55,6 +55,14 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] , function(){
     /*#############################################################################*/
     Route::resource('posts' , PostController::class) ; 
     Route::post('/posts/change-status' , [PostController::class , 'changePostStatus'])->name('posts.change-status') ;
+
+    /*#############################################################################*/ 
+                       /*########  Settings Management Routes ########*/ 
+    /*#############################################################################*/
+    Route::controller(SettingController::class)->prefix('settings')->name('settings.')->group(function(){
+        Route::get('/' , 'index')->name('index') ; 
+        Route::put('/update' , 'update')->name('update') ; 
+    }); 
 
     require __DIR__ . '/adminAuth.php';
 }) ; 
