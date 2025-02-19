@@ -17,8 +17,10 @@ class CheckAdminPermissions
     public function handle(Request $request, Closure $next , ...$permissions): Response
     {
          // Get the authenticated admin user
-         $admin = Auth::guard('admin')->user();
-
+         $admin = Auth::guard('admin')->user() ?? null;
+         if($admin === null){
+             return redirect()->route('admin.login');
+         }
          if ($admin) {
              if (is_string($permissions)) {
                  $permissions = [$permissions];

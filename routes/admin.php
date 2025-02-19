@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\Admin\Admins\AdminController;
 use App\Http\Controllers\Backend\Admin\Auth\Password\ForgetPasswordController;
 use App\Http\Controllers\Backend\Admin\Auth\Password\ResetPasswordController;
 use App\Http\Controllers\Backend\Admin\Categories\CategoryController;
+use App\Http\Controllers\Backend\Admin\Contacts\ContactController as ContactsContactController;
 use App\Http\Controllers\Backend\Admin\Posts\PostController;
 use App\Http\Controllers\Backend\admin\Roles\RoleController;
 use App\Http\Controllers\Backend\Admin\Settings\SettingController;
@@ -74,7 +75,9 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] , function(){
              /*########  Roles And Permissions Management Routes ########*/  
     /*#############################################################################*/
     Route::resource('roles' , RoleController::class) ;
-    
-    
+    /*#############################################################################*/ 
+             /*########  Contacts Management Routes ########*/  
+    /*#############################################################################*/
+    Route::resource('contacts' , ContactsContactController::class) ; 
     require __DIR__ . '/adminAuth.php';
 }) ; 

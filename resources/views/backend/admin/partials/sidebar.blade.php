@@ -1,24 +1,38 @@
 @php
-    $admin = auth()->guard('admin')->user();
+    $admin = auth()->guard('admin')->user() ?? null;
+    if($admin == null){
+        return redirect()->route('admin.login');
+    }
 @endphp
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.index') }}">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3" >ADMIN<sup></sup></div>
-    </a>
+    @if ($admin->can('dashboard_management'))
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.index') }}">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3" >ADMIN<sup></sup></div>
+        </a>
+    @else
+        <a class="sidebar-brand d-flex align-items-center justify-content-center">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3" >ADMIN<sup></sup></div>
+        </a>
+    @endif
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link" href="{{ route('admin.index') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-    </li>
+    @if($admin->can('dashboard_management'))
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ route('admin.index') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>        
+    @endif
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -118,6 +132,21 @@
             <div id="collapsePostPages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('admin.posts.index') }}">Posts</a>
+                </div>
+            </div>
+        </li>
+    @endif
+
+    @if($admin->can('contacts_management'))
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#contactPages"
+                aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Contacts Management</span>
+            </a>
+            <div id="contactPages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('admin.contacts.index') }}">Contacts</a>
                 </div>
             </div>
         </li>

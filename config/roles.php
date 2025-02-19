@@ -8,6 +8,7 @@ return [
         'dashboard_management' => 'Dashboard Management' , 
         'settings_management' => 'Settings Management' ,
         'admins_management' => 'Admins Management' ,
-        'roles_management' => 'Roles Management', 
+        'roles_management' => 'Roles Management',
+        'contacts_management' => 'Contacts Management'
     ]
 ] ; 

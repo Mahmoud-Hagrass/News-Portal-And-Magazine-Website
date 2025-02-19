@@ -78,7 +78,7 @@
                                     <td>{{ $role->name }}</td>
                                     <td>
                                         @forelse ($role->permissions as $permission)
-                                          <button type="button" class="btn btn-success btn-sm">{{ $permission }}</button>
+                                          <button type="button" class="btn btn-success btn-sm" style="margin: 2px;">{{ $permission }}</button>
                                         @empty
                                             <strong class="btn btn-danger">No Permessions</strong>
                                         @endforelse

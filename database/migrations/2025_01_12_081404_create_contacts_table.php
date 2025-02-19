@@ -20,6 +20,7 @@ return new class extends Migration
             $table->longText('message') ;   
             $table->string('phone') ; 
             $table->ipAddress('ip_address')->nullable();
+            $table->boolean('is_read')->default(0) ; 
             $table->timestamps();
         });
     }
