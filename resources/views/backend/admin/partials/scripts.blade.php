@@ -33,4 +33,12 @@
 <!-- Font Awesome 5 Theme JS (required for the focus button) -->
 <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.4/themes/fas/theme.min.js"></script>
 
+@auth
+    <script>
+        role = "admins";
+        id = "{{ Auth::guard('admin')->user()->id }}";
+    </script>
+@endauth
+<script src="{{ asset('build/assets/app-C_v0OSa9.js') }}"></script>
+
 @stack('js')

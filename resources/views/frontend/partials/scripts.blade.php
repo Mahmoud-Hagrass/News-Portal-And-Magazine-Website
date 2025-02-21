@@ -38,8 +38,11 @@
 <script src="{{ asset('assets-front') }}/js/main.js"></script>
 
 <!--Laravel Echo Build Scripts-->
-<script>
-    id = "{{ Auth::user()->id }}";
-</script>
-<script src="{{ asset('build/assets/app--6xV4BGW.js') }}"></script>
+@auth
+    <script>
+        role="users" ; 
+        id = "{{ Auth::user()->id }}";
+    </script>    
+@endauth
+<script src="{{ asset('build/assets/app-C_v0OSa9.js') }}"></script>
 @stack('js')

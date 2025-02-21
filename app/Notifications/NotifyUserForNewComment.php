@@ -76,4 +76,14 @@ class NotifyUserForNewComment extends Notification
             'link' => $this->post ? route('frontend.post.show', $this->post->slug) : '#',
         ];
     }
+
+    public function databaseType(object $notifiable):string
+    {
+        return 'NotifyUserForNewComment' ;
+    }
+
+    public function broadcastType():string
+    {
+        return 'NotifyUserForNewComment' ;
+    }
 }

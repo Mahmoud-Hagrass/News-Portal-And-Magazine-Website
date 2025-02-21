@@ -51,4 +51,10 @@ class Admin extends Authenticatable
         }
     }
 
+    // Customize Broadcasting Private Channel 
+    public function receivesBroadcastNotificationsOn(): string
+    {
+        return 'admins.'. $this->id;
+    }
+
 }

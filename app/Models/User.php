@@ -67,6 +67,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Comment::class , 'user_id') ;
     }
-
     
+    //Customize User Broadcasting Channel
+    public function receivesBroadcastNotificationsOn(): string
+    {
+        return 'users.'. $this->id;
+    }
 }
