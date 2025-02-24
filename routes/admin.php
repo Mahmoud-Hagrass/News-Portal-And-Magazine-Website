@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\Admin\Posts\PostController;
 use App\Http\Controllers\Backend\admin\Roles\RoleController;
 use App\Http\Controllers\Backend\Admin\Settings\SettingController;
 use App\Http\Controllers\Backend\Admin\Users\UserController;
+use App\Http\Controllers\Backend\Dashboard\DashboardController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\Dashboard\User\AccountProfileController;
 use App\Http\Controllers\Frontend\Dashboard\User\NotificationController;
@@ -21,9 +22,7 @@ use Illuminate\Support\Facades\Route;
 use Predis\Configuration\Option\Prefix;
 
 Route::group(['prefix' => 'admin' , 'as' => 'admin.'] , function(){
-    Route::get('/dashboard' , function(){
-        return view('backend.admin.index') ;
-    })->name('index')->middleware('admin') ; 
+    Route::get('/dashboard' ,[DashboardController::class,'index'])->name('index') ; 
 
     /*#############################################################################*/ 
                     /*########   Password Reset Routes ########*/ 
@@ -59,7 +58,7 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] , function(){
     /*#############################################################################*/
     Route::resource('posts' , PostController::class) ; 
     Route::post('/posts/change-status' , [PostController::class , 'changePostStatus'])->name('posts.change-status') ;
-
+    Route::get('/posts/{slug}/comments' , [PostController::class , 'getPostComments'])->name('posts.comments') ; 
     /*#############################################################################*/ 
                        /*########  Settings Management Routes ########*/ 
     /*#############################################################################*/

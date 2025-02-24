@@ -73,4 +73,13 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return 'users.'. $this->id;
     }
+
+    //==========================================================================//
+        //------------------------Local Socpes----------------------------//
+    //==========================================================================//
+
+    public function scopeActive($query)
+    {
+        return $query->where('status' , 1) ;
+    }
 }

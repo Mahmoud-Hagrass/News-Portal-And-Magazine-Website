@@ -26,5 +26,6 @@ class DatabaseSeeder extends Seeder
             ContactSeeder::class , 
             UsefulLinksSeeder::class , 
         ]) ; 
+        
     }
 }

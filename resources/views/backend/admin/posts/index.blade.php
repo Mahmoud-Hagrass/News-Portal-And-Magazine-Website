@@ -109,6 +109,8 @@
                                         </a>
                                         <a href="{{ route('admin.posts.edit' , $post->id) }}" id="postEdit_{{ $post->id }}" title="edit post"><i class="fa fa-edit"></i>
                                         </a>
+                                        <a href="{{ route('admin.posts.show' , $post->id) }}" id="postShow_{{ $post->id }}" title="show post"><i class="fa fa-eye"></i>
+                                        </a>
                                     </td>
                                 </tr>
                                 <x-custom-modal title="Delete Post!" message="Are You Sure To Delete This Post?"

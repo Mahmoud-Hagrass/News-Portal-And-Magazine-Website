@@ -18,8 +18,8 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin') ; 
-        $this->middleware('admin.permissions:posts_management') ;
+        $this->middleware('admin');
+        $this->middleware('admin.permissions:posts_management');
     }
     /**
      * Display a listing of the resource.
@@ -44,20 +44,20 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-            $request->validated();
-            $post = Auth::guard('admin')->user()->posts()->create($request->except(['_token','images']));
-        
-            if (!$post) {
-                display_error_message('Error Try Again!');
-                return redirect()->back();
-            }
+        $request->validated();
+        $post = Auth::guard('admin')->user()->posts()->create($request->except(['_token', 'images']));
 
-            // Handle file upload for images
-            if ($request->hasFile('images')) {
-                ImageManager::uploadImages($request, $post, 'uploads');
-            }
-            display_success_message('Post Created Successfully!');
+        if (!$post) {
+            display_error_message('Error Try Again!');
             return redirect()->back();
+        }
+
+        // Handle file upload for images
+        if ($request->hasFile('images')) {
+            ImageManager::uploadImages($request, $post, 'uploads');
+        }
+        display_success_message('Post Created Successfully!');
+        return redirect()->back();
     }
 
 
@@ -66,7 +66,8 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $post = Post::with(['images'])->findOrFail($id);
+        return view('backend.admin.posts.show', compact('post'));
     }
 
     /**
@@ -107,12 +108,12 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         if (!$post) {
             display_error_message('Error, Try Again!');
-            return redirect()->back();
+            return redirect()->route('admin.posts.index');
         }
         ImageManager::deleteImages($post);
         $post->delete();
         display_success_message('Post Deleted Successfully!');
-        return redirect()->back();
+        return redirect()->route('admin.posts.index');
     }
 
     public function changePostStatus(Request $request)
@@ -135,6 +136,31 @@ class PostController extends Controller
             display_success_message('Post Now Active!');
             return redirect()->back();
         }
+    }
+
+    public function getPostComments($slug)
+    {
+        $post = Post::query()
+            ->select(['id', 'title'])
+            ->with(['comments' => function ($query) {
+                $query->select(['id', 'comment', 'post_id', 'user_id' , 'created_at'])
+                    ->with('user:id,name,image')
+                    ->limit(10)
+                    ->latest();
+            }])->whereSlug($slug)->first();
+
+        if (!$post) {
+            return response()->json([
+                'message' => 'Something Went Wrong !',
+                'status' => 204, // no content found
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'success',
+            'data' => $post,
+            'status' => 200, // ok 
+        ]);
     }
 
 

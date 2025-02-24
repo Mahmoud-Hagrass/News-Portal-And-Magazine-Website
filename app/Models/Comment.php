@@ -27,4 +27,18 @@ class Comment extends Model
       {
           return $this->belongsTo(User::class) ;
       }
+
+      public function post()
+      {
+         return $this->belongsTo(Post::class) ; 
+      }
+
+    //==========================================================================//
+        //------------------------Local Socpes----------------------------//
+    //==========================================================================//
+
+    public function scopeActive($query)
+    {
+        return $query->where('status' , 1) ; 
+    }
 }

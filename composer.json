@@ -15,6 +15,8 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "laraveldaily/laravel-charts": "^0.2.3",
+        "livewire/livewire": "^3.5",
         "php-flasher/flasher-laravel": "^1.15",
         "predis/predis": "^2.3",
         "propaganistas/laravel-phone": "^5.3",
