@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\Admin\Auth\Password\ResetPasswordController;
 use App\Http\Controllers\Backend\Admin\Categories\CategoryController;
 use App\Http\Controllers\Backend\Admin\Profiles\AdminProfileController;
 use App\Http\Controllers\Backend\Admin\Contacts\ContactController as ContactsContactController;
+use App\Http\Controllers\Backend\Admin\Notifications\NotificationController;
 use App\Http\Controllers\Backend\Admin\Posts\PostController;
 use App\Http\Controllers\Backend\admin\Roles\RoleController;
 use App\Http\Controllers\Backend\Admin\Settings\SettingController;
@@ -13,7 +14,6 @@ use App\Http\Controllers\Backend\Admin\Users\UserController;
 use App\Http\Controllers\Backend\Dashboard\DashboardController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\Dashboard\User\AccountProfileController;
-use App\Http\Controllers\Frontend\Dashboard\User\NotificationController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\NewsSubscriberController;
 use App\Http\Controllers\ProfileController;
@@ -81,11 +81,23 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] , function(){
     Route::resource('contacts' , ContactsContactController::class) ; 
     
     /*#############################################################################*/ 
-             /*########  Contacts Management Routes ########*/  
+             /*########  Admin Profile Management Routes ########*/  
     /*#############################################################################*/
     Route::controller(AdminProfileController::class)->prefix('profile')->name('profile.')->group(function(){
         Route::get('/edit' , 'editProfile')->name('edit') ; 
         Route::put('/update' , 'updateProfile')->name('update') ; 
     }) ;
+    /*#############################################################################*/ 
+             /*########  Notifications Management Routes ########*/  
+    /*#############################################################################*/
+     Route::controller(NotificationController::class)->prefix('notifications')->name('notifications.')->group(function(){
+         Route::get('/' , 'index')->name('index') ; 
+         Route::get('/show/{id}' , 'showNotification')->name('show') ; 
+         Route::post('/mark-as-read' , 'markAsRead')->name('mark-as-read') ; 
+         Route::get('/mark-all-as-read' , 'markAllAsRead')->name('mark-all-as-read') ; 
+         Route::get('/delete-all' , 'deleteAllNotifications')->name('delete-all') ; 
+         Route::delete('/delete' , 'deleteNotification')->name('delete') ; 
+     }) ; 
+
     require __DIR__ . '/adminAuth.php';
 }) ; 

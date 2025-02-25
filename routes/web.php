@@ -26,13 +26,14 @@ use Predis\Configuration\Option\Prefix;
 
 Route::group([
     'as' => 'frontend.',
+    'middleware' => ['check.user.status'] , 
 ], function () {
     Route::get('/', [HomeController::class, 'index'])->name('index')->middleware(['auth' ,'verified']); // as a test only
     Route::post('news-subscribe', [NewsSubscriberController::class, 'store'])->name('news-subscribe');
     Route::get('/category/{slug}', CategoryController::class)->name('category-posts');
     
     // Post Routes
-    Route::controller(PostController::class)->prefix('post')->name('post.')->group(function (){
+    Route::controller(PostController::class)->prefix('post')->name('post.')->middleware(['auth' , 'verified'])->group(function (){
             Route::get('/{slug}', 'show_post')->name('show');
             Route::get('/comments/{slug}', 'get_post_comments')->name('comments');
             Route::post('/comments/store', 'store_comment')->name('comments.store');
@@ -62,7 +63,7 @@ Route::group([
             Route::post('/change-password' , 'change_password')->name('change-password') ; 
         }) ; 
 
-        Route::controller(NotificationController::class)->prefix('/notification')->name('notification.')->group(function(){
+        Route::controller(NotificationController::class)->prefix('/notification')->name('notification.')->middleware(['auth' , 'verified'])->group(function(){
             Route::get('/' , 'index')->name('index');  
             Route::delete('/delete' , 'delete_notification')->name('delete');  
             Route::get('/delete-all' , 'delete_all_notifications')->name('delete-all');  
@@ -70,6 +71,10 @@ Route::group([
         }) ; 
 
     }) ; 
+
+    Route::get('/waiting/block' , function(){
+        return view('frontend.waiting.block'); ; 
+    })->name('waiting.block')->withoutMiddleware(['check.user.status']) ; 
 });
 require __DIR__ . '/auth.php';
 

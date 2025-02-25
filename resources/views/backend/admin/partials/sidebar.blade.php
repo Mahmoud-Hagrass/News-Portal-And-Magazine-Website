@@ -149,6 +149,21 @@
         </li>
     @endif
 
+    @if($admin->can('contacts_management'))
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#notificationPages"
+                aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-folder"></i>
+                <span style="font-size:12px">Notifications Management</span>
+            </a>
+            <div id="notificationPages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('admin.notifications.index') }}">Notifications</a>
+                </div>
+            </div>
+        </li>
+    @endif
+
     {{-- <!-- Nav Item - Charts -->
     <li class="nav-item">
         <a class="nav-link" href="charts.html">

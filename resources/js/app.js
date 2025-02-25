@@ -8,7 +8,7 @@ Alpine.start();
 
 
 // users
-if(role == 'users'){
+if(role == "users"){
     window.Echo.private('users.' + id).notification((event) => {
         console.log(event);
         $('#push-notification').prepend(`<div class="dropdown-item d-flex justify-content-between align-items-center">
@@ -21,7 +21,7 @@ if(role == 'users'){
 }
 
 // admins
-if(role == 'admins'){
+if(role == "admins"){
     window.Echo.private('admins.'+id).notification((event) => {
         console.log(event);
         $('#notification_admin_push').prepend(`<a class="dropdown-item d-flex align-items-center" href="${ event.link }?notify_admin=${ event.id }">
@@ -32,7 +32,7 @@ if(role == 'admins'){
                         </div>
                         <div>
                             <div class="small text-gray-500">${event.contact_created_at}</div>
-                            <span class="font-weight-bold">${ event.contact_subject }</span>
+                            <span class="font-weight-bold">${event.contact_subject}</span>
                         </div>
                     </a>`) ; 
                     notification_count = Number($('#notifications_count').text()) ; 

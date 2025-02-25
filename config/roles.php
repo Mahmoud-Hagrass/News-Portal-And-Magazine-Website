@@ -11,5 +11,6 @@ return [
         'roles_management' => 'Roles Management',
         'contacts_management' => 'Contacts Management', 
         'edit_profile' => 'Edit Profile' , 
+        'notifications_management' => 'Notifications Management' , 
     ]
 ] ; 

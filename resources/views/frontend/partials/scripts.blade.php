@@ -41,7 +41,7 @@
 @auth
     <script>
         role="users" ; 
-        id = "{{ Auth::user()->id }}";
+        id = "{{ Auth::guard('web')->user()->id }}";
     </script>    
 @endauth
 <script src="{{ asset('build/assets/app-C_v0OSa9.js') }}"></script>
