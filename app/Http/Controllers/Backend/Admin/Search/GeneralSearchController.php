@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class GeneralSearchController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['admin' , 'admin.permissions:posts_management,users_management,contacts_management']) ; 
+    }
     public function search(Request $request)
     {
         $this->searchValidate($request);
@@ -35,6 +39,7 @@ class GeneralSearchController extends Controller
             ->paginate(5);
 
         if ($posts->isEmpty()) {
+            display_error_message('This Search Keyword Not Found!') ; 
             return redirect()->route('admin.index');
         }
 
@@ -49,6 +54,7 @@ class GeneralSearchController extends Controller
             ->paginate(5);
 
         if ($users->isEmpty()) {
+            display_error_message('This Search Keyword Not Found!') ; 
             return redirect()->route('admin.index');
         }
 
@@ -64,6 +70,7 @@ class GeneralSearchController extends Controller
             ->paginate(5);
 
         if ($contacts->isEmpty()) {
+            display_error_message('This Search Keyword Not Found!') ; 
             return redirect()->route('admin.index');
         }
 

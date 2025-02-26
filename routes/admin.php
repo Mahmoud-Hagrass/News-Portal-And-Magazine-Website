@@ -113,5 +113,9 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] , function(){
      Route::get('/general/search' , [GeneralSearchController::class , 'search'])->name('general.search') ; 
 
 
+     Route::fallback(function(){
+        return view('errors.404');
+     }) ;
+
     require __DIR__ . '/adminAuth.php';
 }) ; 
