@@ -9,7 +9,7 @@
         <div class="col-md-12"> <!-- Adjust this value to control the width -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3 bg-primary text-white">
-                    <h6 class="m-0 font-weight-bold">Create New Role</h6>
+                    <h6 class="m-0 font-weight-bold">Edit Role</h6>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('admin.roles.update', $role->id) }}" method="POST">
@@ -60,7 +60,7 @@
                             <div class="col-md-12 d-flex justify-content-between">
                                 <!-- Create Admin Button -->
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save"></i> Create Role
+                                    <i class="fas fa-save"></i> Edit Role
                                 </button>
                             </div>
                         </div>

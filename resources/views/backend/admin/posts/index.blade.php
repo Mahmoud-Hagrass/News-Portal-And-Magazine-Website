@@ -11,7 +11,7 @@
             </div>
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <form action="{{ url()->current() }}" method="GET" class="form-inline">
+                    <form action="{{ route('admin.posts.index') }}" method="GET" class="form-inline">
                         @csrf
                         <div class="form-group mr-3">
                             <select name="sort_by" class="form-control">

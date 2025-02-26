@@ -13,7 +13,7 @@ class AdminProfileController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['admin' , 'admin.permissions:profile_edit']) ; 
+        $this->middleware(['admin' , 'admin.permissions:edit_profile']) ; 
     }
     public function editProfile()
     {

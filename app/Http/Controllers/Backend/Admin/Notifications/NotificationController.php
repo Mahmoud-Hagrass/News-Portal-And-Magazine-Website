@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['admin' , 'admin.permissions:notifications_management']) ;
+    }
     public function index()
     {
         $notifications = Auth::guard('admin')->user()->unreadNotifications()->get() ; 

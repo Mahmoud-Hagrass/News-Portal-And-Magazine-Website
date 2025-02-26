@@ -149,7 +149,7 @@
         </li>
     @endif
 
-    @if($admin->can('contacts_management'))
+    @if($admin->can('notifications_management'))
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#notificationPages"
                 aria-expanded="true" aria-controls="collapsePages">

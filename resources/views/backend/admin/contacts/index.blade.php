@@ -10,7 +10,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">Contacts Data Table</h6>
             </div>
             <div class="card-body">
-                <form action="{{ url()->current() }}" method="GET" class="form-inline mb-4">
+                <form action="{{ route('admin.contacts.index') }}" method="GET" class="form-inline mb-4">
                     @csrf
                     <div class="form-group mr-3">
                         <select name="sort_by" class="form-control">

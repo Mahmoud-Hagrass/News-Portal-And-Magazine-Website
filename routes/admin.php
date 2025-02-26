@@ -9,6 +9,8 @@ use App\Http\Controllers\Backend\Admin\Contacts\ContactController as ContactsCon
 use App\Http\Controllers\Backend\Admin\Notifications\NotificationController;
 use App\Http\Controllers\Backend\Admin\Posts\PostController;
 use App\Http\Controllers\Backend\admin\Roles\RoleController;
+use App\Http\Controllers\Backend\Admin\Search\GeneralSearch;
+use App\Http\Controllers\Backend\Admin\Search\GeneralSearchController;
 use App\Http\Controllers\Backend\Admin\Settings\SettingController;
 use App\Http\Controllers\Backend\Admin\Users\UserController;
 use App\Http\Controllers\Backend\Dashboard\DashboardController;
@@ -40,6 +42,7 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] , function(){
             Route::post('/reset' , 'resetPassword')->name('reset-password') ; 
         }) ; 
     }) ; 
+    
     /*#############################################################################*/ 
                        /*########  Uers Management Routes ########*/ 
     /*#############################################################################*/ 
@@ -59,6 +62,7 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] , function(){
     Route::resource('posts' , PostController::class) ; 
     Route::post('/posts/change-status' , [PostController::class , 'changePostStatus'])->name('posts.change-status') ;
     Route::get('/posts/{slug}/comments' , [PostController::class , 'getPostComments'])->name('posts.comments') ; 
+    
     /*#############################################################################*/ 
                        /*########  Settings Management Routes ########*/ 
     /*#############################################################################*/
@@ -66,15 +70,18 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] , function(){
         Route::get('/' , 'index')->name('index') ; 
         Route::put('/update/{id}' , 'update')->name('update') ; 
     }); 
+    
     /*#############################################################################*/ 
                        /*########  Admins Management Routes ########*/ 
     /*#############################################################################*/
     Route::resource('admins' , AdminController::class) ; 
     Route::post('/admins/change-status' , [AdminController::class , 'changeAdminStatus'])->name('admins.change-status') ;
+    
     /*#############################################################################*/ 
              /*########  Roles And Permissions Management Routes ########*/  
     /*#############################################################################*/
     Route::resource('roles' , RoleController::class) ;
+    
     /*#############################################################################*/ 
              /*########  Contacts Management Routes ########*/  
     /*#############################################################################*/
@@ -87,6 +94,7 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] , function(){
         Route::get('/edit' , 'editProfile')->name('edit') ; 
         Route::put('/update' , 'updateProfile')->name('update') ; 
     }) ;
+    
     /*#############################################################################*/ 
              /*########  Notifications Management Routes ########*/  
     /*#############################################################################*/
@@ -98,6 +106,12 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] , function(){
          Route::get('/delete-all' , 'deleteAllNotifications')->name('delete-all') ; 
          Route::delete('/delete' , 'deleteNotification')->name('delete') ; 
      }) ; 
+
+     /*#############################################################################*/ 
+                    /*########  General Search Routes ########*/  
+    /*#############################################################################*/
+     Route::get('/general/search' , [GeneralSearchController::class , 'search'])->name('general.search') ; 
+
 
     require __DIR__ . '/adminAuth.php';
 }) ; 
