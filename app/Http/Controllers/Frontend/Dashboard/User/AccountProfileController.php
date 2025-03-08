@@ -40,7 +40,7 @@ class AccountProfileController extends Controller
                 ]) ; 
 
                 $post = Post::create($request->except('_token' , 'images')) ; 
-                $uploadedFiles = ImageManager::uploadImages($request , $post , 'uploads') ;
+                $uploadedFiles = ImageManager::uploadImages($request , $post , 'posts' , 'uploads') ;
                 
                 // Every Time Create Post We Clear Our Cache To Get Latest Updated Posts From Cache
                 Cache::forget('read_more_posts') ; 
@@ -102,7 +102,7 @@ class AccountProfileController extends Controller
             ($request->comment_able == 'on') ? $request->merge(['comment_able' => 1]) : $request->merge(['comment_able' => 0]) ;  
             $post->update($request->except(['_token' , 'images' , 'post_id'])) ; // update post
             $uploadedFiles = [] ;
-            $uploadedFiles = ImageManager::uploadImages($request , $post ,'uploads') ; 
+            $uploadedFiles = ImageManager::uploadImages($request , $post  , 'posts' ,'uploads') ; 
             Cache::forget('read_more_posts') ;
             DB::commit() ; 
             display_success_message('Post Updated Successfully !') ;

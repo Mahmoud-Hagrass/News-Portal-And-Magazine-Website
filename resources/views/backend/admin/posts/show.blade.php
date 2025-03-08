@@ -22,7 +22,7 @@
                             <div class="carousel-inner">
                                 @foreach ($post->images as $image)
                                     <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                        <img src="{{ $image->image }}" class="d-block w-100 img-fluid" style="max-height: 300px; object-fit: cover;" alt="Post Image">
+                                        <img src="{{ asset('storage/uploads/' . $image->image) }}" class="d-block w-100 img-fluid" style="max-height: 300px; object-fit: cover;" alt="Post Image">
                                     </div>
                                 @endforeach
                             </div>
@@ -103,9 +103,10 @@
                             month: 'long',
                             day: 'numeric',
                         });
+                        const imageUrl = 'http://news-portal.net/storage/uploads/'  + comment.user.image ; 
                         $("#displayComments_" + post_slug).append(`
                             <div class="comment" style="display: flex; align-items: flex-start; margin-bottom: 15px;">
-                                <img src="${comment.user.image}" alt="User Image" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 10px;" />
+                                <img src="${imageUrl}" alt="User Image" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 10px;" />
                                 <div class="comment-content" style="flex: 1;">
                                     <span class="username" style="font-weight: bold; display: block; margin-bottom: 5px;">${comment.user.name}(${formattedDate})</span>
                                     <p class="comment-text" style="margin: 0;">${comment.comment}</p>

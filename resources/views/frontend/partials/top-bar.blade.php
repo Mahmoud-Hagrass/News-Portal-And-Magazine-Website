@@ -3,7 +3,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="tb-contact">
-                        <p><i class="fas fa-envelope"></i>{{ $site_settings->email }}</p>
+                        <p><i class="fas fa-envelope"></i><a href="mailto:{{ $site_settings->email }}" style="cursor: pointer; text-decoration: none; color: inherit; cursor: default;">{{ $site_settings->email }}</a></p>
                         <p><i class="fas fa-phone-alt"></i>{{ $site_settings->phone }}</p>
                     </div>
                 </div>

@@ -37,7 +37,7 @@ class SettingController extends Controller
             if($request->hasFile('image')){
                 ImageManager::deleteImage($user) ;
             }; 
-            ImageManager::uploadImage($request , $user) ; 
+            ImageManager::uploadImage($request , $user , 'users' , 'uploads') ; 
             DB::commit() ;
             display_success_message('Profile Updated Successfully !') ; 
             return redirect()->back() ; 

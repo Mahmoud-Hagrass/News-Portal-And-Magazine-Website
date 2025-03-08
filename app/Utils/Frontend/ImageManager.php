@@ -9,22 +9,22 @@ use Illuminate\Support\Facades\Storage;
 
 class ImageManager
 {
-    public static function uploadImages($request , $post , $disk)
+    public static function uploadImages($request , $data  , $folder, $disk)
     {
         $uploadedFiles = [] ;
         if($request->hasFile('images')){
             //delete old images
-            self::deleteImages($post) ; 
+            self::deleteImages($data) ; 
             // delete post images from paths from database
-            $post->images()->delete() ;
+            $data->images()->delete() ;
             
             $images = $request->file('images'); 
             foreach($images as $image){
                 $file =  Str::uuid() .  time() . '.' . $image->getClientOriginalExtension() ;
-                $path = $image->storeAs('posts' , $file , ['disk' => $disk]) ;
+                $path = $image->storeAs($folder , $file , ['disk' => $disk]) ;
                 $uploadedFiles[] = $path ; 
                 PostImage::create([
-                    'post_id' => $post->id ,
+                    'post_id' => $data->id ,
                     'image' => $path , 
                 ]) ; 
             }
@@ -59,12 +59,12 @@ class ImageManager
         return false; 
     }
 
-    public static function uploadImage($request , $user)
+    public static function uploadImage($request , $user  , $folder , $disk)
     {
         if($request->hasFile('image')){
             $image = $request->file('image') ; 
             $file = Str::uuid() . time() . '.' .$image->getClientOriginalExtension() ; 
-            $path = $image->storeAs('users', $file , ['disk' => 'uploads']) ;
+            $path = $image->storeAs($folder, $file , ['disk' => $disk]) ;
             $user->update([
                 'image' => $path , 
             ]) ;  

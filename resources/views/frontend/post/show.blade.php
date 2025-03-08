@@ -269,10 +269,9 @@
          }); 
          
          
-
-
-   $(document).on('submit' , '#commentFormId' , function(e){
+        $(document).on('submit' , '#commentFormId' , function(e){
             e.preventDefault() ; 
+            const imageUrl = 'http://news-portal.net/storage/uploads/' ; 
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var formData = new FormData($(this)[0]) ; 
             console.log(formData) ; 
@@ -288,9 +287,10 @@
                 }, 
                 success:function(response){
                     if(response.status == 201){
+                        console.log(imageUrl) ; 
                         $('#errorMessage').hide() ;  // hide the validation error after adding comment correctly
                         $('.comments').prepend(`<div class="comment">
-                                        <img src="${response.data.user.image}" alt="User Image"
+                                        <img src="${imageUrl}${response.data.user.image}" alt="User Image"
                                             class="comment-img" />
                                         <div class="comment-content">
                                             <span class="username">${response.data.user.name}</span>

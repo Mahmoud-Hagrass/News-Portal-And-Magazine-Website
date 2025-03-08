@@ -12,7 +12,10 @@
             <section id="profile" class="content-section active">
                 <h2>User Profile</h2>
                 <div class="user-profile mb-3">
-                    <img src="{{ asset('storage/uploads/' . Auth::guard('web')->user()->image) ?? asset('img.jpg')}}" alt="User Image"
+                    @php
+                        $auth_user = Auth::guard('web')->user() ; 
+                    @endphp
+                    <img src="{{ $auth_user->provider_id ? $auth_user->image : asset('storage/uploads/' . $auth_user->image) }}" alt="User Image"
                         class="profile-img rounded-circle" style="width: 100px; height: 100px;" />
                     <span class="username">{{ Auth::guard('web')->user()->name }}</span>
                 </div>
@@ -33,13 +36,13 @@
                         <div class="post-form p-3 border rounded">
                             <!-- Post Title -->
                             <input type="text" name="title"  id="postTitle" class="form-control mb-2"
-                                placeholder="Post Title" />
+                                placeholder="Post Title" value="{{ old('title') }}" />
 
                                 <!-- Post Smalll Description -->
-                            <textarea name="small_description" class="form-control mb-2" rows="4" placeholder="Enter Small Description"></textarea>
+                            <textarea name="small_description" class="form-control mb-2" rows="4" placeholder="Enter Small Description">{{ old('small_description') }}</textarea>
                             
                             <!-- Post Content -->
-                            <textarea name="description" id="smallDescription" class="form-control mb-2" rows="6" placeholder="Enter Long Description"></textarea>
+                            <textarea name="description" id="smallDescription" class="form-control mb-2" rows="6" placeholder="Enter Long Description">{{ old('description') }}</textarea>
                             
                             <!-- Image Upload -->
                             <input name="images[]" type="file" id="postImage" class="form-control mb-2" accept="image/*"
@@ -52,13 +55,13 @@
                             <select name="category_id" id="postCategory">
                                 <option value="" selected>Select Category</option>
                                     @foreach($allCategories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>{{ $category->name }}</option>
                                     @endforeach
                             </select><br>
 
                             <!-- Enable Comments Checkbox -->
                             <label class="lable">
-                                Enable Comments : <input name="comment_able" type="checkbox" class=""/>
+                                Enable Comments : <input name="comment_able" type="checkbox" class="" @checked(old('comment_able') == 'on')/>
                             </label><br>
 
                             <!-- Post Button -->
@@ -75,14 +78,14 @@
                            @forelse ($posts as $post)
                                 <div class="post-item mb-4 p-3 border rounded">
                                     <div class="post-header d-flex align-items-center mb-2">
-                                        <img src="{{ asset('img.jpg')}}" alt="User Image" class="rounded-circle"
+                                        <img src="{{ $auth_user->provider_id ? $auth_user->image : asset('storage/uploads/' . $auth_user->image) }}" alt="User Image" class="rounded-circle"
                                             style="width: 50px; height: 50px;" />
                                         <div class="ms-3">
-                                            <h5 class="mb-0">{{ Auth::guard('web')->user()->name}}</h5>
+                                            <h5 class="mb-0">{{ $auth_user->name }}</h5>
                                         </div>
                                     </div>
                                     <h4 class="post-title">{{ $post->title }}</h4>
-                                    <p class="post-content">{!! $post->description !!}</p>
+                                    <p>{!! $post->description !!}</p>
 
                                     <div id="newsCarousel" class="carousel slide" data-ride="carousel">
                                         <ol class="carousel-indicators">

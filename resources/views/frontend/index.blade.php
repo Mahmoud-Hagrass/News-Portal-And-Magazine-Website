@@ -18,7 +18,7 @@
                         @foreach ($firstThreePosts as $post)
                             <div class="col-md-6">
                                 <div class="tn-img">
-                                    <img src="{{ asset('storage/uploads/'. $post->images->first()->image)}}"/>
+                                    <img src="{{ asset('storage/uploads/' . $post->images->first()->image) }}"/>
                                     <div class="tn-title">
                                         <a href="{{ route('frontend.post.show', $post->slug) }}">{{ $post->title }}</a>
                                     </div>
@@ -32,7 +32,7 @@
                         @foreach ($firstFourPosts as $post)
                             <div class="col-md-6">
                                 <div class="tn-img">
-                                    <img src="{{ $post->images->first()->image }}" />
+                                    <img src="{{ asset('storage/uploads/' . $post->images->first()->image) }}" />
                                     <div class="tn-title">
                                         <a href="{{ route('frontend.post.show', $post->slug) }}">{{ $post->title }}</a>
                                     </div>
@@ -57,7 +57,7 @@
                             @foreach ($category->posts as $post)
                                 <div class="col-md-6">
                                     <div class="cn-img">
-                                        <img src="{{ $post->images->first()->image }}" />
+                                        <img src="{{ asset('storage/uploads/' . $post->images->first()->image) }}" />
                                         <div class="cn-title">
                                             <a
                                                 href="{{ route('frontend.post.show', $post->slug) }}">{{ $post->title }}</a>
@@ -92,7 +92,7 @@
                             @foreach ($oldestPosts as $post)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{ $post->images->first()->image }}" />
+                                        <img src="{{ asset('storage/uploads/' . $post->images->first()->image) }}" />
                                     </div>
                                     <div class="tn-title">
                                         <a href="{{ route('frontend.post.show', $post->slug) }}">{{ $post->title }}</a>
@@ -104,7 +104,7 @@
                             @foreach ($popularPosts as $post)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{ $post->images->first()->image }}" />
+                                        <img src="{{ asset('storage/uploads/' . $post->images->first()->image) }}" />
                                     </div>
                                     <div class="tn-title">
                                         <a href="{{ route('frontend.post.show', $post->slug) }}">{{ $post->title }}</a>
@@ -142,7 +142,7 @@
                             @foreach ($mostViewedPosts as $post)
                                 <div class="tn-news">
                                     <div class="tn-img">
-                                        <img src="{{ $post->images->first()->image }}" />
+                                        <img src="{{ asset('storage/uploads/' . $post->images->first()->image) }}" />
                                     </div>
                                     <div class="tn-title">
                                         <a href="{{ route('frontend.post.show', $post->slug) }}">{{ $post->title }}

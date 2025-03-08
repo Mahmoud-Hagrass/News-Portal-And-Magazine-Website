@@ -44,20 +44,21 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        $request->validated();
-        $post = Auth::guard('admin')->user()->posts()->create($request->except(['_token', 'images']));
-
-        if (!$post) {
-            display_error_message('Error Try Again!');
+        try{
+            DB::beginTransaction();
+            $request->validated();
+            $post = Auth::guard('admin')->user()->posts()->create($request->except(['_token', 'images']));
+            if ($request->hasFile('images')) {
+                ImageManager::uploadImages($request, $post, 'posts', 'uploads');
+            }
+            DB::commit();
+            display_success_message('Post Created Successfully!');
             return redirect()->back();
+        }catch(Exception $e){
+            DB::rollBack() ; 
+            display_error_message('Try Again!') ;   
+            return redirect()->back() ;
         }
-
-        // Handle file upload for images
-        if ($request->hasFile('images')) {
-            ImageManager::uploadImages($request, $post, 'uploads');
-        }
-        display_success_message('Post Created Successfully!');
-        return redirect()->back();
     }
 
 

@@ -47,7 +47,7 @@ class UserController extends Controller
             $email_verified_at = $request->email_verified_at == 1 ? Carbon::now() : null; 
             $request->merge(['email_verified_at' => $email_verified_at]); 
             $user = User::create($request->except(['_token' , 'image' , 'password_confirmation'])) ;
-            ImageManager::uploadImage($request , $user) ;
+            ImageManager::uploadImage($request , $user , 'users' , 'uploads') ;
             DB::commit();
             display_success_message('User Created Successfully !'); ; 
             return redirect()->back() ;

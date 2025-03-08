@@ -11,7 +11,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $posts = Post::active()->with('images')->latest()
+        $posts = Post::active()->with(['images'])->latest()
             ->paginate(config('pagination.post_count'));
 
         $mostViewedPosts = Post::active()->with('images')->orderBy('number_of_views', 'desc')

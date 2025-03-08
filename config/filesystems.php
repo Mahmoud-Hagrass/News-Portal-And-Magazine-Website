@@ -46,9 +46,9 @@ return [
         'uploads' => [
             'driver' => 'local',
             'root' => storage_path('uploads/'),
-            'url' => env('APP_URL') . '/storage',
+            'url' => env('APP_URL') . '/storage/uploads',
             'visibility' => 'public',
-            'throw' => false,
+            'throw' => true,
         ],
         's3' => [
             'driver' => 's3',
