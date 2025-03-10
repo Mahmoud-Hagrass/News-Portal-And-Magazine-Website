@@ -199,6 +199,8 @@
                 document.getElementById('formDelete_' + id).submit() ;
             }
         }
+
+        var imageUrl = 'http://news-portal.net/storage/uploads/' ; 
         // display commment for each posts when click on "button : Comments"
         $(document).on('click' , '.getComments' , function(e){
             e.preventDefault() ;
@@ -213,7 +215,7 @@
                         $('#displayComments_' + post_slug).empty() ;
                         $.each(response.comments , function(key , comment){
                             $("#displayComments_" + post_slug).append(`<div class="comment">
-                                        <img src="${comment.user.image}" alt="User Image" class="comment-img" />
+                                        <img src="${imageUrl}${comment.user.image}" alt="User Image" class="comment-img" />
                                         <div class="comment-content">
                                             <span class="username">${comment.user.name}</span>
                                             <p class="comment-text">${comment.comment}</p>
@@ -222,7 +224,6 @@
                             }) ;
                         $("#comment_btn_" + post_id).hide() ; 
                         $("#hide_comment_btn_" + post_id).show() ; 
-                        
                    }
                 }
             }) ; 

@@ -19,12 +19,11 @@ class StorePostCommentRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
-        return [
-             'comment' => ['required' , 'string' , 'max:200'],
-             'user_id' => ['required' , 'exists:users,id'], 
-             'post_id' => ['required' , 'exists:posts,id'], 
-        ];
-    }
+        public function rules(): array
+        {
+            return [
+                'comment' => ['required' , 'string' , 'min:3' ,  'max:200'],
+                'post_id' => ['required' , 'string',  'exists:posts,id'], 
+            ];
+        }
 }

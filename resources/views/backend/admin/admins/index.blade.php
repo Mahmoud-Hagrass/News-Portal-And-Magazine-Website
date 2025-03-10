@@ -80,7 +80,7 @@
                                     <td>{{ $admin->name }}</td>
                                     <td>{{ $admin->username }}</td>
                                     <td>{{ $admin->email }}</td>
-                                    <th>{{ $admin->roles->name ?? 'No Role' }}</th>
+                                    <th>{{ $admin->role->name ?? 'No Role' }}</th>
                                     <td style="align-content:center;text-align:center;">
                                         @if ($admin->status == 1)
                                             <button class="btn btn-success">Active</button>
@@ -105,7 +105,7 @@
                                     </a>
                                 </td>
                             </tr>
-                               @endif
+                            @endif
                                 <x-delete-modal title="Delete Admin!" message="Are You Sure To Delete This Admin?"
                                     id="{{ $admin->id }}" formId="deleteForm_">
                                 </x-delete-modal>

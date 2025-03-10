@@ -18,7 +18,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::paginate(5) ; 
+        $roles = Role::withCount('admins')->paginate(5) ; 
         return view('backend.admin.roles.index' , ['roles' => $roles]) ;
     }
 

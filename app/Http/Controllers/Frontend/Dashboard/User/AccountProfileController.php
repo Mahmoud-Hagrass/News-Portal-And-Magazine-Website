@@ -84,8 +84,8 @@ class AccountProfileController extends Controller
      public function get_post_comments($slug)
      {
         $post = Post::whereSlug($slug)->first() ;
-        $comments =$post->comments()->latest()->get() ; 
-        $comments->load(['user']) ; 
+        $comments =$post->comments()->select(['id','comment','user_id','post_id'])->latest()->get() ; 
+        $comments->load(['user:id,name,image']) ; 
         return response()->json([
             'status' => 200 , 
             'comments' => $comments , 

@@ -38,6 +38,8 @@ Route::group([
             Route::get('/{slug}', 'show_post')->name('show');
             Route::get('/comments/{slug}', 'get_post_comments')->name('comments');
             Route::post('/comments/store', 'store_comment')->name('comments.store');
+            Route::post('/comments/hide', 'hide_comment')->name('comments.hide');
+            Route::delete('/comments/delete' , 'delete_comment')->name('comments.delete') ;
             Route::post('/search' , 'post_search')->name('search') ; 
     }) ; 
     

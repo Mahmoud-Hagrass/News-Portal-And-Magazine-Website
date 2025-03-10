@@ -10,6 +10,7 @@ use App\Utils\Frontend\ImageManager;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
@@ -36,7 +37,7 @@ class PostController extends Controller
     public function create()
     {
         $categoies  = Category::basicSelect()->get();
-        return view('backend.admin.posts.create', ['categories' => $categoies]);;
+        return view('backend.admin.posts.create', ['categories' => $categoies]);
     }
 
     /**
@@ -52,6 +53,7 @@ class PostController extends Controller
                 ImageManager::uploadImages($request, $post, 'posts', 'uploads');
             }
             DB::commit();
+            Cache::flush() ; // forget all cache keys
             display_success_message('Post Created Successfully!');
             return redirect()->back();
         }catch(Exception $e){
@@ -95,8 +97,9 @@ class PostController extends Controller
         $post->update($request->except(['_token', '_method', 'images']));
         if ($request->hasFile('images')) {
             ImageManager::deleteImages($post);
-            ImageManager::uploadImages($request, $post, 'uploads');
+            ImageManager::uploadImages($request, $post, 'posts' ,'uploads');
         }
+        Cache::flush() ; // forget all cache keys
         display_success_message('Post Updated Successfully!');
         return redirect()->back();
     }
@@ -113,6 +116,7 @@ class PostController extends Controller
         }
         ImageManager::deleteImages($post);
         $post->delete();
+        Cache::flush() ; // forget all cache keys
         display_success_message('Post Deleted Successfully!');
         return redirect()->route('admin.posts.index');
     }
