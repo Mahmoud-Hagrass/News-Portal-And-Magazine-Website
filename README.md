@@ -182,6 +182,24 @@
 #### ✅ **Laravel 10>=**
 #### ✅ **Node.js & npm** (for frontend assets)
 
+📷 Screenshots : 
+---
+### Admin Sceenshots :
+![screencapture-news-portal-net-admin-dashboard-2025-03-11-00_07_36](https://github.com/user-attachments/assets/f49f7d8b-4b12-40ff-b157-8da6fb801376)
+![screencapture-news-portal-net-admin-roles-create-2025-03-11-00_10_40](https://github.com/user-attachments/assets/32809b67-8fd8-4abf-8177-e4a289495a7a)
+![screencapture-news-portal-net-admin-roles-2025-03-11-00_10_08](https://github.com/user-attachments/assets/9a02f550-ad0a-4fe6-be6c-5cba961c8a84)
+![screencapture-news-portal-net-admin-users-2025-03-11-00_11_28](https://github.com/user-attachments/assets/6bfa7a90-91c3-4a9b-a018-64154c11c794)
+![screencapture-news-portal-net-admin-users-create-2025-03-11-00_11_43](https://github.com/user-attachments/assets/f27d26dc-501c-4f5f-973d-f1eff388bc0c)
+![screencapture-news-portal-net-admin-notifications-2025-03-11-00_15_43](https://github.com/user-attachments/assets/60c6e2ac-e417-4017-a8f8-41ddeb80bf57)
+![screencapture-news-portal-net-admin-contacts-1-edit-2025-03-11-00_14_49](https://github.com/user-attachments/assets/976124ec-3035-4c37-8629-c499eb8df51c)
+![screencapture-news-portal-net-admin-contacts-1-2025-03-11-00_14_19](https://github.com/user-attachments/assets/2d3d22c3-bcb9-432a-84ef-a6788ff51020)
+![screencapture-news-portal-net-admin-contacts-2025-03-11-00_13_31](https://github.com/user-attachments/assets/64765602-50f1-40b4-8739-21a8a7c7ecd4)
+![screencapture-news-portal-net-admin-posts-create-2025-03-11-00_13_14](https://github.com/user-attachments/assets/adddbd45-5c50-4682-a3cd-e29f639b173e)
+![screencapture-news-portal-net-admin-posts-2025-03-11-00_13_04](https://github.com/user-attachments/assets/3260e8d5-00e7-467b-8cb8-eef282e10d69)
+![screencapture-news-portal-net-admin-categories-2025-03-11-00_12_54](https://github.com/user-attachments/assets/a5cd76ed-f5a2-4a03-a274-69adee018e8b)
+![screencapture-news-portal-net-admin-users-status-in-active-2025-03-11-00_11_57](https://github.com/user-attachments/assets/9ab73d66-f558-4f8c-91e2-eec9ec9e6e3a)
+
+
 ### Installation Steps
 ### 1. Clone the repository:
 
