@@ -25,6 +25,7 @@ class UpdatePostRequest extends FormRequest
             'title' => ['required' , 'string' , 'min:3' , 'max:100'], 
             'description' => ['required' , 'string' , 'min:50'] , 
             'category_id' => ['required' , 'exists:categories,id'], 
+            'post_id' => ['required' , 'string' , 'min:1' , 'exists:posts,id'] , 
             'comment_able' => ['in:on,off'], 
             'images' => ['nullable' , 'array'] , 
             'images.*' => ['image' , 'mimes:jpg,png,jpeg,webp' , 'max:2048'] ,

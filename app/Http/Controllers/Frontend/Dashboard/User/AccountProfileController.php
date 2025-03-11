@@ -21,6 +21,9 @@ class AccountProfileController extends Controller
 {
      public function show_profile()
      {
+        if(!Auth::check()){
+            return redirect()->route('login') ;
+        }
         $posts = Auth::user()->posts()->active()->with(['images'])->latest()->get() ;  
         return view('frontend.dashboard.user-profile'  , compact('posts')) ; 
      }
@@ -43,7 +46,7 @@ class AccountProfileController extends Controller
                 $uploadedFiles = ImageManager::uploadImages($request , $post , 'posts' , 'uploads') ;
                 
                 // Every Time Create Post We Clear Our Cache To Get Latest Updated Posts From Cache
-                Cache::forget('read_more_posts') ; 
+                Cache::flush() ; 
                 DB::commit(); 
                 display_success_message('Post Created Successfully !') ;
                 return redirect()->back() ; 
@@ -64,7 +67,10 @@ class AccountProfileController extends Controller
      public function edit_post($slug)
      {
         $post = Post::whereSlug($slug)->with(['images'])->first() ; 
-        //return $post ; 
+        if(!$post){
+            display_error_message('Error, Try Again!') ; 
+            return redirect()->back() ;
+        }
         return view('frontend.post.edit' , get_defined_vars()) ; 
      }
 
@@ -75,7 +81,7 @@ class AccountProfileController extends Controller
         //delete post and it's images paths from database
         $post->delete() ; 
         // clear the cache to get the updated posts after delete any post
-        Cache::forget('read_more_posts') ; 
+        Cache::flush() ;
         display_success_message('Post Deleted Successfully !') ;
         return redirect()->back() ; 
      }
@@ -98,24 +104,17 @@ class AccountProfileController extends Controller
         try{
             DB::beginTransaction() ; 
             $request->validated() ; 
-            $post = Post::with('images')->findorFail($request->post_id) ;
             ($request->comment_able == 'on') ? $request->merge(['comment_able' => 1]) : $request->merge(['comment_able' => 0]) ;  
+            $post = Post::with('images')->findorFail($request->post_id) ; 
             $post->update($request->except(['_token' , 'images' , 'post_id'])) ; // update post
-            $uploadedFiles = [] ;
-            $uploadedFiles = ImageManager::uploadImages($request , $post  , 'posts' ,'uploads') ; 
-            Cache::forget('read_more_posts') ;
+            ImageManager::uploadImages($request , $post  , 'posts' ,'uploads') ; 
+            Cache::flush() ;
             DB::commit() ; 
             display_success_message('Post Updated Successfully !') ;
-            return redirect()->back() ;
+            return redirect()->route('frontend.index') ;
         }catch(Exception $e){
             DB::rollBack() ;
-            // delete all paths that might be uploaded
-            foreach($uploadedFiles as $file){
-                if(Storage::disk('uploads')->exists($file)){
-                    $file = Storage::disk('uploads')->delete($file);  
-                }
-            }
-            display_error_message('Can not Update Post , Try Again') ;
+            display_error_message('Can not Update Post , may be images not uploaded') ;
             return redirect()->back() ; 
         }
      }

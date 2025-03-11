@@ -23,7 +23,9 @@
                     <section id="add-post" class="add-post-section mb-5">
                         <h2>Edit Post</h2>
                         <div class="post-form p-3 border rounded">
-                            <input type="hidden" name="post_id" id="postId" value="{{ $post->id }}"/>
+                            @if($post->id)
+                                <input type='hidden' name="post_id" value="{{ $post->id }}" />
+                            @endif
                             <!-- Post Title -->
                             <input type="text" name="title"  id="postTitle" class="form-control mb-2"
                                 placeholder="Post Title" value="{{ $post->title }}"/>

@@ -53,7 +53,7 @@ class PostController extends Controller
                 ImageManager::uploadImages($request, $post, 'posts', 'uploads');
             }
             DB::commit();
-            Cache::flush() ; // forget all cache keys
+            $this->clearCacheKeys() ; 
             display_success_message('Post Created Successfully!');
             return redirect()->back();
         }catch(Exception $e){
@@ -99,7 +99,7 @@ class PostController extends Controller
             ImageManager::deleteImages($post);
             ImageManager::uploadImages($request, $post, 'posts' ,'uploads');
         }
-        Cache::flush() ; // forget all cache keys
+        $this->clearCacheKeys() ; 
         display_success_message('Post Updated Successfully!');
         return redirect()->back();
     }
@@ -116,7 +116,7 @@ class PostController extends Controller
         }
         ImageManager::deleteImages($post);
         $post->delete();
-        Cache::flush() ; // forget all cache keys
+        $this->clearCacheKeys() ; 
         display_success_message('Post Deleted Successfully!');
         return redirect()->route('admin.posts.index');
     }
@@ -205,5 +205,12 @@ class PostController extends Controller
             ->orderBy($sort_by, $order_by)
             ->paginate($limit_by);
         return $posts;
+    }
+
+    private function clearCacheKeys()
+    {
+        Cache::forget('latest_posts');
+        Cache::forget('popular_posts');
+        Cache::forget('read_more_posts');
     }
 }
