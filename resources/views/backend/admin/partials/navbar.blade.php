@@ -96,18 +96,34 @@
                         class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="alertsDropdown">
                         @forelse (Auth::guard('admin')->user()->unreadNotifications()->take(5)->get() as $notify)
-                            <a class="dropdown-item d-flex align-items-center"
-                                href="{{ $notify->data['link'] ?? '' }}?notify_admin={{ $notify->id }}">
-                                <div class="mr-3">
-                                    <div class="icon-circle bg-primary">
-                                        <i class="fas fa-file-alt text-white"></i>
+                            @if($notify->type == 'NewContactAdminNotify')
+                                <a class="dropdown-item d-flex align-items-center"
+                                    href="{{ $notify->data['link'] ?? '' }}?notify_admin={{ $notify->id }}">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-primary">
+                                            <i class="fas fa-file-alt text-white"></i>
+                                        </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <div class="small text-gray-500">{{ $notify->data['contact_created_at'] ?? '' }}</div>
-                                    <span class="font-weight-bold">{{ $notify->data['contact_subject'] ?? '' }}</span>
-                                </div>
-                            </a>
+                                    <div>
+                                        <div class="small text-gray-500">{{ $notify->data['contact_created_at'] ?? '' }}</div>
+                                        <span class="font-weight-bold">{{ $notify->data['contact_subject'] ?? '' }}</span>
+                                    </div>
+                                </a>
+                            @endif
+                            @if($notify->type == 'NotifyAdminForNewComment')
+                                <a class="dropdown-item d-flex align-items-center"
+                                        href="{{ $notify->data['link'] ?? '' }}?notify_admin={{ $notify->id }}">
+                                        <div class="mr-3">
+                                            <div class="icon-circle bg-primary">
+                                                <i class="fas fa-file-alt text-white"></i>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="small text-gray-500">{{ $notify->data['created_at'] ?? '' }}</div>
+                                            <span class="font-weight-bold">You have a new comment in post: {{ Str::limit($notify->data['post_title'],15) ?? '' }}</span>
+                                        </div>
+                                </a>
+                            @endif
                         @empty
                             <a class="dropdown-item d-flex align-items-center">
                                 <div class="mr-3">

@@ -104,7 +104,7 @@
                                             @endif
                                         </a>
                                         <a href="" data-toggle="modal"
-                                            data-target="#exampleModal_{{ $post->id }}" title="delete post"><i
+                                            data-target="#deleteModal_{{ $post->id }}" title="delete post"><i
                                                 class="fa fa-trash"></i>
                                         </a>
                                         <a href="{{ route('admin.posts.edit' , $post->id) }}" id="postEdit_{{ $post->id }}" title="edit post"><i class="fa fa-edit"></i>
@@ -113,8 +113,8 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <x-custom-modal title="Delete Post!" message="Are You Sure To Delete This Post?"
-                                    id="{{ $post->id }}"></x-custom-modal>
+                                <x-delete-modal title="Delete Post!" message="Are You Sure To Delete This Post?"
+                                    id="{{ $post->id }}" formId="deletePostForm_"></x-delete-modal>
                                 <!--form for delete user-->
                                 <form id="deletePostForm_{{ $post->id }}"
                                     action="{{ route('admin.posts.destroy', $post->id) }}" method="POST">

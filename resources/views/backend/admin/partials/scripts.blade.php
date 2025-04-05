@@ -39,6 +39,6 @@
         id = "{{ Auth::guard('admin')->user()->id }}";
     </script>
 @endauth
-<script src="{{ asset('build/assets/app-C_v0OSa9.js') }}"></script>
+<script src="{{ asset('build/assets/app-CsRrxtlk.js') }}"></script>
 
 @stack('js')

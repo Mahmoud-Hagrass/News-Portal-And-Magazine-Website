@@ -132,12 +132,14 @@ class PostController extends Controller
             $post->update([
                 'status' => 0,
             ]);
+            $this->clearCacheKeys() ;  //clear cache
             display_success_message('Post Now UnActive!');
             return redirect()->back();
         } else {
             $post->update([
                 'status' => 1,
             ]);
+            $this->clearCacheKeys() ;  //clear cache
             display_success_message('Post Now Active!');
             return redirect()->back();
         }

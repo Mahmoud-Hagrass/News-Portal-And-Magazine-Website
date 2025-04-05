@@ -106,11 +106,11 @@
                                     </td>
                                 </tr>
                                 <x-delete-modal title="Delete User!" message="Are You Sure To Delete This User?"
-                                    id="{{ $user->id }}" formId="deleteForm_">
+                                    id="{{ $user->id }}" formId="formDelete_">
                                 </x-delete-modal>
                                 <x-show-users-info-modal id="{{ $user->id }}"></x-show-users-info-modal>
                                 <!--form for delete user-->
-                                <form id="deleteForm_{{ $user->id }}"
+                                <form id="formDelete_{{ $user->id }}"
                                     action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')

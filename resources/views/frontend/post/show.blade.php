@@ -62,7 +62,7 @@
                                     </div>
                                     <!-- Settings Icon and Dropdown (Top Right) -->
                                     @auth
-                                        @if($post->user->id == Auth::guard('web')->user()->id)
+                                        @if(optional($post->user)->id === optional(Auth::guard('web')->user())->id)
                                             <div class="settings-container" style="position: absolute; top: 5px; right: 5px;">
                                                 <button class="settings-btn" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 0; width: 20px; height: 20px;">⚙️</button>
                                                 <div class="settings-dropdown" style="display: none; position: absolute; background-color: white; min-width: 120px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border-radius: 4px; right: 25px; top: 0;">
@@ -373,16 +373,16 @@
                     }
                 },
                 error: function(response) {
-                    if (response.responseJSON.errors.user_id) {
+                    if (response.responseJSON.status == 401) {
                         window.location.href = '/login';
-                    } else if (response.responseJSON.errors.comment) {
-                        var errorMessage = response.responseJSON.errors.comment[0];
-                        $('#errorMessage').text(errorMessage).show();
-                    } else if (response.responseJSON.status == 401) {
-                        window.location.href = '/login';
+                        $('#comment_id').val('') ; 
                     } else if (response.responseJSON.status == 403) {
                         var message = response.responseJSON.message;
                         $('#errorMessage').text(message).show();
+                    }
+                    else if (response.responseJSON.errors.comment) {
+                        var errorMessage = response.responseJSON.errors.comment[0];
+                        $('#errorMessage').text(errorMessage).show();
                     }
                 }
             });

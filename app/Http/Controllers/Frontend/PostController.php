@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\StorePostCommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Notifications\NotifyAdminForNewCommnent;
 use App\Notifications\NotifyUserForNewComment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,12 +57,22 @@ class PostController extends Controller
     public function store_comment(StorePostCommentRequest $request)
     {
         // Check if the request is an AJAX request
-        $this->checkAjaxRequest($request);
+        $response = $this->checkAjaxRequest($request);
+        if($response){
+            return $response;
+        }
         // Check if the user is authenticated
-        $this->checkForAuthUser();
+        $response = $this->checkForAuthUser();
+        if($response){
+            return $response ; 
+        }
 
         // merge auth user id & it's ip address in the request
-        $this->mergeAuthUserAndLocalIpAddressToRequest($request);
+        $response = $this->mergeAuthUserAndLocalIpAddressToRequest($request);
+        if($response){
+            return $response ; 
+        }
+
         //create a new comment
         $comment = Comment::create($request->all());
         if (!$comment) {
@@ -75,7 +86,11 @@ class PostController extends Controller
 
         //notify in realtime for author of post when someone add comment of his post.
         $post = Post::findorFail($request->post_id);
-        $post->user->notify(new NotifyUserForNewComment($comment_with_user, $post));
+        if($post->user_id){
+            $post->user->notify(new NotifyUserForNewComment($comment_with_user, $post));
+        }else if($post->admin_id){
+            $post->admin->notify(new NotifyAdminForNewCommnent($comment_with_user, $post)); ; 
+        }
 
         return response()->json([
             'message' => 'success',
@@ -163,7 +178,7 @@ class PostController extends Controller
     private function loadCommentWithUserCreator($commentId)
     {
         return Comment::with(['user:id,name,image'])
-            ->select(['id', 'comment', 'post_id', 'user_id'])
+            ->select(['id', 'comment', 'post_id', 'user_id' , 'created_at'])
             ->active()
             ->find($commentId);
     }
