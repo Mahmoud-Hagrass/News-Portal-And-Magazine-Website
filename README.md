@@ -4,8 +4,8 @@
 
 ## 🎥 Video Tutorials
 
-### 🔹 **Linkedin Post For That Tutorial**: [Live Demo](#)  
-### 🔹 **Complete Tutorial Series**: [Watch Now](#)  
+ 🔹 Check out the Live Demo! <a href="https://www.youtube.com/watch?v=Dpxt3HZdiqg" target="_blank">[Click Here]</a> <br>
+ 🔹 Watch the Complete Tutorial Series! <a href="https://www.linkedin.com/feed/update/urn:li:activity:7318422212816863232/" target="_blank">[click here]</a>
 
 ## 🌟 Features
 
